@@ -1,0 +1,68 @@
+const asyncHandler = require('express-async-handler')
+
+const Grocery = require('../models/groceryModel')
+
+// @desc Get Groceries
+// @route GET /api/groceries
+// @access Private
+const getGroceries = asyncHandler(async (req, res) => {
+    const groceries = await Grocery.find()
+    res.status(200).json(groceries)
+})
+
+// @desc Set grocery
+// @route POST /api/groceries
+// @access Private
+const createGrocery = asyncHandler(async (req, res) => {
+    if(!req.body.name) {
+        res.status(400)
+        throw new Error('Please add a valid name field')
+    }
+
+    const grocery  = await Grocery.create({
+        name: req.body.name,
+    })
+
+    res.status(200).json(grocery)
+})
+
+// @desc Update Grocery
+// @route PUT /api/groceries/:id
+// @access Private
+const updateGrocery = asyncHandler(async (req, res) => {
+    const grocery = await Grocery.findById(req.params.id)
+
+    if(!grocery){
+        res.status(400)
+        throw new Error('Grocery item not found')
+    }
+
+    const updatedGrocery = 
+        await Grocery.findByIdAndUpdate(req.params.id, req.body, 
+            {
+                new: true,
+            })
+
+    res.status(200).json(updatedGrocery)
+})
+
+// @desc Delete grocery
+// @route DELETE /api/groceries/:id
+// @access Private
+const deleteGrocery = asyncHandler(async (req, res) => {
+    const grocery = await Grocery.findById(req.params.id)
+
+    if(!grocery){
+        res.status(400)
+        throw new Error('Grocery item not found')
+    }
+
+    await grocery.deleteOne()
+
+    res.status(200).json({message: `Delete grocery id: ${req.params.id}`})
+})
+
+
+module.exports = {
+    getGroceries, createGrocery, updateGrocery, deleteGrocery
+}
