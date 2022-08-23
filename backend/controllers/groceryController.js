@@ -39,16 +39,14 @@ const updateGrocery = asyncHandler(async (req, res) => {
         throw new Error('Grocery item not found')
     }
 
-    const user = await User.findById(req.user.id)
-
     // Check for user
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error('user not found')
     }
 
     // make sure the logged in user matches grocery user
-    if(grocery.user.toString() !== user.id){
+    if(grocery.user.toString() !== req.user.id){
         res.status(401)
         throw new Error('user not authorized')
     }
@@ -73,16 +71,14 @@ const deleteGrocery = asyncHandler(async (req, res) => {
         throw new Error('Grocery item not found')
     }
     
-    const user = await User.findById(req.user.id)
-
     // Check for user
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error('user not found')
     }
 
     // make sure the logged in user matches grocery user
-    if(grocery.user.toString() !== user.id){
+    if(grocery.user.toString() !== req.user.id){
         res.status(401)
         throw new Error(`user not authorized`)
     }
