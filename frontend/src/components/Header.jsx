@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header className="header">
         <div className="logo">
-            <Link to='/'>Goal Setter </Link>
+            <Link to='/'>Grocery Getter</Link>
         </div>
         <ul>
         { user ? (

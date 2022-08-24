@@ -15,13 +15,13 @@ const getGroceries = asyncHandler(async (req, res) => {
 // @route POST /api/groceries
 // @access Private
 const createGrocery = asyncHandler(async (req, res) => {
-    if(!req.body.name) {
+    if(!req.body.text) {
         res.status(400)
-        throw new Error('Please add a valid name field')
+        throw new Error('Please add a valid text field')
     }
 
     const grocery  = await Grocery.create({
-        name: req.body.name,
+        text: req.body.text,
         user: req.user.id
     })
 

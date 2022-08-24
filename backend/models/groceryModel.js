@@ -7,9 +7,9 @@ const grocerySchema = mongoose.Schema(
             required: true,
             ref: 'User'
        },
-       name: {
+       text: {
            type: String,
-           required: [true, 'Please add name value'],
+           required: [true, 'Please add text value'],
        },
     },
     {
