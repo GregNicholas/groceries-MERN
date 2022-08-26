@@ -3,7 +3,8 @@ import axios from 'axios'
 // we put a proxy in frontend package.json so it will use
 // for example http://localhost/2121/API_URL
 // proxy needs some additional configuration for vite. using axios.defaults.baseURL for now
-axios.defaults.baseURL = `http://localhost:2121`
+// defaults baseURL is for development only
+// axios.defaults.baseURL = `http://localhost:2121`
 const API_URL = '/api/users/'
 
 // Register user
