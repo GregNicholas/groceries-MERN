@@ -85,7 +85,7 @@ const deleteGrocery = asyncHandler(async (req, res) => {
 
     await grocery.deleteOne()
 
-    res.status(200).json({message: `Delete grocery id: ${req.params.id}`})
+    res.status(200).json({id: `${req.params.id}`})
 })
 
 module.exports = {

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+:root {
+  --primary-blue: rgb(10, 0, 96);
+  --secondary-blue: rgb(101, 101, 154);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -83,7 +88,7 @@ h3 {
 }
 
 .heading p {
-  color: #828282;
+  color: var(--secondary-blue);
 }
 
 .groceries {
@@ -137,9 +142,9 @@ h3 {
 
 .btn {
   padding: 10px 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--primary-blue);
   border-radius: 5px;
-  background: #000;
+  background: var(--primary-blue);
   color: #fff;
   font-size: 16px;
   font-weight: 700;
@@ -157,7 +162,7 @@ h3 {
 
 .btn-reverse {
   background: #fff;
-  color: #000;
+  color: var(--primary-blue);
 }
 
 .btn-block {
@@ -186,9 +191,9 @@ h3 {
   width: 64px;
   height: 64px;
   border: 8px solid;
-  border-color: #000 transparent #555 transparent;
+  border-color: var(--primary-blue) transparent var(--secondary-blue) transparent;
   border-radius: 50%;
-  animation: spin 1.2s linear infinite;
+  animation: spin 1.2s ease-in-out infinite;
 }
 
 @keyframes spin {

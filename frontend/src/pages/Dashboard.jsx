@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import GroceryForm from '../components/GroceryForm'
 import Spinner from '../components/Spinner'
+import GroceryItem from '../components/GroceryItem'
 import { getGroceries, reset } from '../features/groceries/grocerySlice'
 
 const Dashboard = () => {
@@ -15,7 +16,8 @@ const Dashboard = () => {
   useEffect(() => {
     if(isError) {
       console.log(message)
-    }    if(!user){
+    } 
+    if(!user){
       navigate('/login')
     }
 
@@ -26,6 +28,10 @@ const Dashboard = () => {
     }
   }, [user, navigate, isError, message, dispatch])
 
+  if (isLoading){
+    return <Spinner />
+  }
+console.log(groceries)
   return (
     <>
       <section className='heading'>
@@ -34,6 +40,17 @@ const Dashboard = () => {
       </section>
 
       <GroceryForm />
+
+      <section className="content">
+        {groceries.length > 0 ? (
+          <div className="groceries">
+          {groceries.map(grocery => {
+            return <GroceryItem key={grocery._id} grocery={grocery} />
+          })}
+          </div>
+        ) : (<h3>Your list is empty</h3>) 
+        }
+      </section>
     </>
   )
 }

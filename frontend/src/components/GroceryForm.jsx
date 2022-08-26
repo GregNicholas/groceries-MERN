@@ -22,7 +22,7 @@ const GroceryForm = () => {
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="text">Grocery Item</label>
-                <input type="text" name="text" value={text} onChange={handleChange} />
+                <input type="text" name="text" id="text" value={text} onChange={handleChange} />
             </div>
             <div className="form-group">
                 <button className="btn btn-block" type="submit">
