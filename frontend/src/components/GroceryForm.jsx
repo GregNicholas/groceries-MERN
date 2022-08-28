@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createGrocery } from '../features/groceries/grocerySlice'
+import { FaPlusCircle } from 'react-icons/fa'
 
 const GroceryForm = () => {
     const [text, setText] = useState('')
@@ -21,12 +22,12 @@ const GroceryForm = () => {
     <section className="form">
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="text">Grocery Item</label>
-                <input type="text" name="text" id="text" value={text} onChange={handleChange} />
+                <label htmlFor="text"></label>
+                <input type="text" name="text" id="text" value={text} onChange={handleChange} placeholder="Add an item"/>
             </div>
             <div className="form-group">
                 <button className="btn btn-block" type="submit">
-                    Add Item
+                    <FaPlusCircle /> Add Item
                 </button>
             </div>
         </form>

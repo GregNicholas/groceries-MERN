@@ -57,7 +57,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="heading">
+      <section className="heading authentication">
         <h1>
           <FaSignInAlt /> Login
         </h1>

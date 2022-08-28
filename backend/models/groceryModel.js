@@ -11,6 +11,7 @@ const grocerySchema = mongoose.Schema(
            type: String,
            required: [true, 'Please add text value'],
        },
+       isInCart: Boolean
     },
     {
         timestamps: true,

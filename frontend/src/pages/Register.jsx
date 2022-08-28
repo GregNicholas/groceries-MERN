@@ -65,7 +65,7 @@ const Register = () => {
 
   return (
     <>
-      <section className="heading">
+      <section className="heading authentication">
         <h1>
           <FaUser /> Register
         </h1>
