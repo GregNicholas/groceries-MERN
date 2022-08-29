@@ -3,6 +3,7 @@
 :root {
   --primary-blue: rgb(10, 0, 96);
   --secondary-blue: rgb(101, 101, 154);
+  --light-orange: rgb(254, 131, 60);
 }
 
 * {
@@ -14,11 +15,12 @@
 body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
+  background-color: var(--secondary-blue);
 }
 
 a {
   text-decoration: none;
-  color: #000;
+  color: var(--primary-blue);
 }
 
 p {
@@ -53,8 +55,6 @@ h3 {
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #e6e6e6;
-  margin-bottom: 60px;
 }
 
 .header ul {
@@ -80,42 +80,109 @@ h3 {
   margin-right: 5px;
 }
 
+.logo{
+  font-style: italic;
+  color: var(--primary-blue);
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
 .heading {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 50px;
+  margin: 0 -1.25rem 3rem -1.25rem;
   padding: 0 20px;
 }
 
+.heading h1 {
+  color: white;
+  text-shadow: 0 0 12px black;
+}
+
 .heading p {
-  color: var(--secondary-blue);
+  color: white;
+  text-shadow: 0 0 12px black;
+  font-style: italic;
+}
+
+.hero, .authentication{
+  top: 0;
+  background-color: light-gray;
+  background-attachment: fixed;
+  background-position: bottom;
+  background-size: cover;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: inset 0 1px 15px;
+}
+
+.hero {
+  background-image: url("./assets/groceries-bg.jpg");
+}
+
+.authentication {
+  background-image: url("./assets/paper-bag-bg.jpg");
 }
 
 .groceries {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  margin-bottom: 1rem;
 }
 
 .grocery {
-  background-color: #f4f4f4;
+  background-color: var(--light-orange);
+  color: var(--primary-blue);
+  border-radius: 8px;
   margin: 10px 0;
-  padding: 20px 0 10px;
+  padding: 25px 10px 10px 10px;
   position: relative;
+  cursor: default;
+  box-shadow: 0 0 1px var(--primary-blue);
 }
 
 .grocery .close {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 8px;
+  right: 10px;
+  color: rgb(225,0,0);
   cursor: pointer;
   border: none;
   background: none;
 }
 
+.grocery .close:hover {
+  scale: 1.4;
+}
+
+.grocery .close:active {
+  scale: 1;
+}
+
+.grocery .add-to-cart {
+  position: absolute;
+  font-size: 1rem;
+  top: 8px;
+  left: 10px;
+  color: var(--primary-blue);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: slategray;
+  background: lightgray;
+  box-shadow: 1px 1px 10px -2px var(--secondary-blue);
+}
+
 .form,
 .content {
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -154,6 +221,10 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn:active {
+  box-shadow: inset 0 0 8px black;
 }
 
 .btn svg {
@@ -211,10 +282,33 @@ h3 {
   }
 
   .heading h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .heading p {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 500px) { 
+  .groceries {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  } 
+
+  .grocery {
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+    padding: 0.5rem 1.8rem;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
+  .grocery-date {
+    display: none;
   }
 }

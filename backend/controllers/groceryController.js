@@ -22,7 +22,8 @@ const createGrocery = asyncHandler(async (req, res) => {
 
     const grocery  = await Grocery.create({
         text: req.body.text,
-        user: req.user.id
+        user: req.user.id,
+        isInCart: false,
     })
 
     res.status(200).json(grocery)

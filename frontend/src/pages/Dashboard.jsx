@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if(isError) {
-      console.log(message)
+      console.log("error message:", message)
     } 
     if(!user){
       navigate('/login')
@@ -31,10 +31,10 @@ const Dashboard = () => {
   if (isLoading){
     return <Spinner />
   }
-console.log(groceries)
+console.log(user)
   return (
     <>
-      <section className='heading'>
+      <section className="heading hero">
         <h1>Welcome {user && user.name}</h1>
         <p>Groceries Dashboard</p>
       </section>

@@ -4,7 +4,10 @@ import axios from 'axios'
 // for example http://localhost/2121/API_URL
 // proxy needs some additional configuration for vite. using axios.defaults.baseURL for now
 // defaults baseURL is for development only
-// axios.defaults.baseURL = `http://localhost:2121`
+if(process.env.NODE_ENV === 'development'){
+    axios.defaults.baseURL = `http://localhost:2121`
+}
+
 const API_URL = '/api/users/'
 
 // Register user
