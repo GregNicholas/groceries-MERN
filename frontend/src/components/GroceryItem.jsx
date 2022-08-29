@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { deleteGrocery } from "../features/groceries/grocerySlice"
 import { FaCartArrowDown } from 'react-icons/fa'
+import { BsCartXFill, BsCartPlusFill } from 'react-icons/bs'
 import { FiSlash } from 'react-icons/fi'
 
 
@@ -15,12 +16,14 @@ const GroceryItem = ({grocery}) => {
   return (
     <div onClick={() => setIsChecked(prev => !prev)} aria-label="add to cart">
     <div className={isChecked ? 'checked grocery' : 'grocery' }>
-        <div className="grocery-date">
+        {!isChecked && <div className="grocery-date">
             {new Date(grocery.createdAt).toLocaleString('en-US')}
-        </div>
+        </div>}
         <h2>{grocery.text}</h2>
         
-        <div className="add-to-cart"><FaCartArrowDown /></div>
+        <div className="add-to-cart">
+          {isChecked ? <BsCartXFill /> : <BsCartPlusFill />}
+        </div>
         <button onClick={() => dispatch(deleteGrocery(grocery._id))} className="close" aria-label="close">
             <FiSlash />
         </button>

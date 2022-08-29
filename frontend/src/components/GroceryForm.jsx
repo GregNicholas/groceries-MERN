@@ -14,9 +14,11 @@ const GroceryForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        dispatch(createGrocery({ text }))
-        setText('')
+        if(text.length > 0){
+            dispatch(createGrocery({ text }))
+            setText('')
+        }
+        
     }
   return (
     <section className="form">
