@@ -24,7 +24,6 @@ const getGroceries = async (token) => {
 }
 
 const updateGrocery = async (updateData, token) => {
-    console.log("TOKEN", token)
     const groceryId = updateData[0]
     const data = updateData[1]
     const config = {

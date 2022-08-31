@@ -18,10 +18,9 @@ const GroceryItem = ({grocery}) => {
   }
 
   const addItemToCart = () => {
-    console.log("ADD TO CART")
     dispatch(updateGrocery([grocery._id, {isInCart: !grocery.isInCart}]))
   }
-// console.log("GroceryItem: ", grocery.isInCart)
+
   return (
     <div onClick={addItemToCart} aria-label="add to cart">
     <div className={grocery.isInCart ? 'checked grocery' : 'grocery' }>

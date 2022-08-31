@@ -45,7 +45,6 @@ export const getGroceries = createAsyncThunk('groceries/getAll', async (_, thunk
 })
 
 export const updateGrocery = createAsyncThunk('groceries/update', async(updateData, thunkAPI) => {
-  console.log("BEGIN UPDATE: ", updateData)
   try {
     const token = thunkAPI.getState().auth.user.token
     return await groceryService.updateGrocery(updateData, token)
@@ -61,7 +60,6 @@ export const updateGrocery = createAsyncThunk('groceries/update', async(updateDa
 })
 
 export const deleteGrocery = createAsyncThunk('groceries/delete', async(id, thunkAPI) => {
-  console.log("DELETING : ", id)
   try {
     const token = thunkAPI.getState().auth.user.token
     return await groceryService.deleteGrocery(id, token)
@@ -118,7 +116,6 @@ export const grocerySlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.groceries = state.groceries.map((grocery) => {
-              console.log("ID!!!", action.payload._id, grocery._id)
               return grocery._id === action.payload._id ? action.payload : grocery})
           })
           .addCase(updateGrocery.rejected, (state, action) => {
@@ -133,7 +130,6 @@ export const grocerySlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.groceries = state.groceries.filter((grocery) => {
-              console.log("ID!!!", action.payload.id)
               return grocery._id !== action.payload.id})
           })
           .addCase(deleteGrocery.rejected, (state, action) => {

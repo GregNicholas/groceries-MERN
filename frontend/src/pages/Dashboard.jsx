@@ -15,7 +15,10 @@ const Dashboard = () => {
   
   const [filterChecked, setFilterChecked] = useState(false);
   const [sortChecked, setSortChecked] = useState(false);
-  const [filteredGroceries, setFilteredGroceries] = useState([]);
+  const [filteredGroceries, setFilteredGroceries] = useState(null);
+
+  const time = new Date().getHours()
+  const greeting = time < 12 ? "Good morning, " : time < 18 ? "Good afternoon, " : "Good evening, "
 
   useEffect(() => {
     if(isError) {
@@ -37,38 +40,74 @@ const Dashboard = () => {
   }, [isLoading])
 
   useEffect(() => {
-    if(filterChecked){
-      console.log(filteredGroceries)
-      const filtered = filteredGroceries.filter(item => {
-        console.log("filtereing....", item)
-        return item.isInCart 
-      })
-      setFilteredGroceries(filtered)
-    } else {
-      setFilteredGroceries(groceries)
+    if(filteredGroceries) {
+      // let newList = [...filteredGroceries]
+      if(filterChecked && !sortChecked){
+          const newList = groceries.filter(item => {
+          return !item.isInCart 
+        })
+        setFilteredGroceries(newList)
+      } else if(sortChecked && !filterChecked) {
+        const newList = [...groceries].sort((a,b) => {
+          if (a.text > b.text){
+            return 1 
+          } else {
+            return -1
+          }
+        })
+        setFilteredGroceries(newList)
+      } else if(sortChecked && filterChecked){
+        const newList = [...groceries].filter(item => {
+          return !item.isInCart 
+        }).sort((a,b) => {
+          if (a.text > b.text){
+            return 1 
+          } else {
+            return -1
+          }
+        })
+        setFilteredGroceries(newList)
+      }
+      if(!filterChecked && !sortChecked) {
+        setFilteredGroceries(groceries)
+      }
     }
+    
   }, [filterChecked, sortChecked])
 
   const handleFilterCheck = () => {
     setFilterChecked(prev => !prev)
   }
 
-  // if (isLoading){
-  //   return <Spinner />
-  // }
-  console.log(filteredGroceries)
+  const handleSortCheck = () => {
+    console.log("sort")
+    setSortChecked(prev => !prev)
+  }
+
+  if (!filteredGroceries){
+    return <Spinner />
+  }
+
   return (
     <>
       <section className="heading hero">
-        <h1>Welcome {user && user.name}</h1>
-        <p>Groceries Dashboard</p>
+        <h1>{greeting} {user && user.name}</h1>
       </section>
-      <label htmlFor="filter">Show unchecked</label>
+
+      <label className="label" htmlFor="filter">Hide checked</label>
       <input 
         type="checkbox" 
         id="filter" 
         checked={filterChecked} 
         onChange={handleFilterCheck}
+      />
+
+      <label className="label" htmlFor="sort">Sort list</label>
+      <input 
+        type="checkbox" 
+        id="sort" 
+        checked={sortChecked} 
+        onChange={handleSortCheck}
       />
       <GroceryForm />
 

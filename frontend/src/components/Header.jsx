@@ -5,10 +5,9 @@ import { logout, reset } from '../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.auth.user)
+  const { user } = useSelector((state) => state.auth)
 
   const handleLogout = () => {
       dispatch(logout())
@@ -24,12 +23,12 @@ const Header = () => {
         <ul>
         { user ? (
             <li>
-                <button className="btn" onClick={handleLogout}>
+                <a className="logout" onClick={handleLogout}>
                     <FaSignOutAlt /> Logout
-                </button>
+                </a>
             </li>
         ) : (
-            <>
+            <div className="auth-links">
                 <li>
                     <Link to='/login'>
                         <FaSignInAlt /> Login
@@ -40,7 +39,7 @@ const Header = () => {
                         <FaUser /> Register
                     </Link>
                 </li>
-            </>
+            </div>
         )}  
         </ul>
         
