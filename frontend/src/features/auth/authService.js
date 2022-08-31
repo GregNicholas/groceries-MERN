@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // we put a proxy in frontend package.json so it will use
-// for example http://localhost/2121/API_URL
+// for example http://localhost/2121/API_URL in development
 // proxy needs some additional configuration for vite. using axios.defaults.baseURL for now
 // defaults baseURL is for development only
 if(process.env.NODE_ENV === 'development'){

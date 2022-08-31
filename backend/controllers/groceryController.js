@@ -34,7 +34,7 @@ const createGrocery = asyncHandler(async (req, res) => {
 // @access Private
 const updateGrocery = asyncHandler(async (req, res) => {
     const grocery = await Grocery.findById(req.params.id)
-
+console.log("IN UPDATE BODY", req.body)
     if(!grocery){
         res.status(400)
         throw new Error('Grocery item not found')
@@ -57,6 +57,7 @@ const updateGrocery = asyncHandler(async (req, res) => {
             {
                 new: true,
             })
+console.log("GROCERY CONTROLLER UPDATE UPDATED: ", updatedGrocery)
 
     res.status(200).json(updatedGrocery)
 })

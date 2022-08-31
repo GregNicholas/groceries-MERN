@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import GroceryForm from '../components/GroceryForm'
@@ -12,6 +12,10 @@ const Dashboard = () => {
 
   const { user } = useSelector((state) => state.auth)
   const { groceries, isLoading, isError, message } = useSelector((state) => state.groceries)
+  
+  const [filterChecked, setFilterChecked] = useState(false);
+  const [sortChecked, setSortChecked] = useState(false);
+  const [filteredGroceries, setFilteredGroceries] = useState([]);
 
   useEffect(() => {
     if(isError) {
@@ -28,23 +32,50 @@ const Dashboard = () => {
     }
   }, [user, navigate, isError, message, dispatch])
 
-  if (isLoading){
-    return <Spinner />
+  useEffect(() => {
+    setFilteredGroceries(groceries)
+  }, [isLoading])
+
+  useEffect(() => {
+    if(filterChecked){
+      console.log(filteredGroceries)
+      const filtered = filteredGroceries.filter(item => {
+        console.log("filtereing....", item)
+        return item.isInCart 
+      })
+      setFilteredGroceries(filtered)
+    } else {
+      setFilteredGroceries(groceries)
+    }
+  }, [filterChecked, sortChecked])
+
+  const handleFilterCheck = () => {
+    setFilterChecked(prev => !prev)
   }
-console.log(user)
+
+  // if (isLoading){
+  //   return <Spinner />
+  // }
+  console.log(filteredGroceries)
   return (
     <>
       <section className="heading hero">
         <h1>Welcome {user && user.name}</h1>
         <p>Groceries Dashboard</p>
       </section>
-
+      <label htmlFor="filter">Show unchecked</label>
+      <input 
+        type="checkbox" 
+        id="filter" 
+        checked={filterChecked} 
+        onChange={handleFilterCheck}
+      />
       <GroceryForm />
 
       <section className="content">
-        {groceries.length > 0 ? (
+        {filteredGroceries.length > 0 ? (
           <div className="groceries">
-          {groceries.map(grocery => {
+          {filteredGroceries.map(grocery => {
             return <GroceryItem key={grocery._id} grocery={grocery} />
           })}
           </div>

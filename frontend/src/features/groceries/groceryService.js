@@ -23,6 +23,19 @@ const getGroceries = async (token) => {
     return response.data
 }
 
+const updateGrocery = async (updateData, token) => {
+    console.log("TOKEN", token)
+    const groceryId = updateData[0]
+    const data = updateData[1]
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.put(API_URL + groceryId, data, config)
+    return response.data
+}
+
 const deleteGrocery = async (groceryId, token) => {
     const config = {
         headers: {
@@ -36,6 +49,7 @@ const deleteGrocery = async (groceryId, token) => {
 const groceryService = {
     createGrocery,
     getGroceries,
+    updateGrocery,
     deleteGrocery,
 }
 

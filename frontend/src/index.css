@@ -46,7 +46,7 @@ h3 {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1.25rem 1rem 1.25rem;
   text-align: center;
 }
 
@@ -262,7 +262,7 @@ h3 {
   width: 64px;
   height: 64px;
   border: 8px solid;
-  border-color: var(--primary-blue) transparent var(--secondary-blue) transparent;
+  border-color: var(--light-orange) var(--primary-blue) var(--primary-blue) var(--primary-blue);
   border-radius: 50%;
   animation: spin 1.2s ease-in-out infinite;
 }

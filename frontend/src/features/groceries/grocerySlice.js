@@ -44,7 +44,24 @@ export const getGroceries = createAsyncThunk('groceries/getAll', async (_, thunk
     }
 })
 
+export const updateGrocery = createAsyncThunk('groceries/update', async(updateData, thunkAPI) => {
+  console.log("BEGIN UPDATE: ", updateData)
+  try {
+    const token = thunkAPI.getState().auth.user.token
+    return await groceryService.updateGrocery(updateData, token)
+  } catch (err) {
+      const message = 
+        (err.response &&
+          err.response.data &&
+          err.response.data.message) ||
+          err.message ||
+          err.toString()
+      return thunkAPI.rejectWithValue(message)
+  }
+})
+
 export const deleteGrocery = createAsyncThunk('groceries/delete', async(id, thunkAPI) => {
+  console.log("DELETING : ", id)
   try {
     const token = thunkAPI.getState().auth.user.token
     return await groceryService.deleteGrocery(id, token)
@@ -94,6 +111,21 @@ export const grocerySlice = createSlice({
             state.isError = true
             state.message = action.payload
           })
+          .addCase(updateGrocery.pending, (state) => {
+            state.isLoading = true
+          })
+          .addCase(updateGrocery.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.groceries = state.groceries.map((grocery) => {
+              console.log("ID!!!", action.payload._id, grocery._id)
+              return grocery._id === action.payload._id ? action.payload : grocery})
+          })
+          .addCase(updateGrocery.rejected, (state, action) => {
+            state.isLoading = false
+            state.isError = true
+            state.message = action.payload
+          })
           .addCase(deleteGrocery.pending, (state) => {
             state.isLoading = true
           })
@@ -101,6 +133,7 @@ export const grocerySlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.groceries = state.groceries.filter((grocery) => {
+              console.log("ID!!!", action.payload.id)
               return grocery._id !== action.payload.id})
           })
           .addCase(deleteGrocery.rejected, (state, action) => {
