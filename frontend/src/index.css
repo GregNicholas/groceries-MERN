@@ -281,8 +281,18 @@ h3 {
 .filter-buttons {
   display: flex;
   width: 90%;
-  margin: 0 auto;
+  margin: 1rem auto 0 auto;
   justify-content: space-evenly;
+}
+
+.recipe-link {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.recipe-link:hover {
+  color: var(--secondary-blue);
 }
 
 .loadingSpinnerContainer {
@@ -316,7 +326,11 @@ h3 {
   }
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) { 
+  .heading {
+    margin-bottom: 1.5rem;
+  }
+
   .form {
     width: 90%;
   }
@@ -328,9 +342,7 @@ h3 {
   .heading p {
     font-size: 2rem;
   }
-}
 
-@media only screen and (max-width: 600px) { 
   .groceries {
     display: flex;
     flex-direction: column;

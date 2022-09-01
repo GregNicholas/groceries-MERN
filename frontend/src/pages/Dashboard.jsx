@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import GroceryForm from '../components/GroceryForm'
 import Spinner from '../components/Spinner'
@@ -98,6 +99,13 @@ const Dashboard = () => {
         checked={sortChecked} 
         onChange={() => setSortChecked(prev => !prev)}
       /> */}
+
+      {groceries.length > 0 && (
+        <Link className="recipe-link" to='/recipes'>
+            Explore Recipes
+        </Link>
+      )}
+
       <div className="filter-buttons">
         <button 
           className="btn btn-filter"
