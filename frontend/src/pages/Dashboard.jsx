@@ -5,6 +5,7 @@ import GroceryForm from '../components/GroceryForm'
 import Spinner from '../components/Spinner'
 import GroceryItem from '../components/GroceryItem'
 import { getGroceries, reset } from '../features/groceries/grocerySlice'
+import { BiHide, BiShow, BiSortAZ, BiSortDown } from 'react-icons/bi'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -40,8 +41,6 @@ const Dashboard = () => {
   }, [isLoading])
 
   useEffect(() => {
-    if(filteredGroceries) {
-      // let newList = [...filteredGroceries]
       if(filterChecked && !sortChecked){
           const newList = groceries.filter(item => {
           return !item.isInCart 
@@ -49,7 +48,7 @@ const Dashboard = () => {
         setFilteredGroceries(newList)
       } else if(sortChecked && !filterChecked) {
         const newList = [...groceries].sort((a,b) => {
-          if (a.text > b.text){
+          if (a.text.toLowerCase() > b.text.toLowerCase()){
             return 1 
           } else {
             return -1
@@ -60,7 +59,7 @@ const Dashboard = () => {
         const newList = [...groceries].filter(item => {
           return !item.isInCart 
         }).sort((a,b) => {
-          if (a.text > b.text){
+          if (a.text.toLowerCase() > b.text.toLowerCase()){
             return 1 
           } else {
             return -1
@@ -71,18 +70,8 @@ const Dashboard = () => {
       if(!filterChecked && !sortChecked) {
         setFilteredGroceries(groceries)
       }
-    }
     
-  }, [filterChecked, sortChecked])
-
-  const handleFilterCheck = () => {
-    setFilterChecked(prev => !prev)
-  }
-
-  const handleSortCheck = () => {
-    console.log("sort")
-    setSortChecked(prev => !prev)
-  }
+  }, [filterChecked, sortChecked, groceries])
 
   if (!filteredGroceries){
     return <Spinner />
@@ -94,12 +83,12 @@ const Dashboard = () => {
         <h1>{greeting} {user && user.name}</h1>
       </section>
 
-      <label className="label" htmlFor="filter">Hide checked</label>
+      {/* <label className="label" htmlFor="filter">Hide checked</label>
       <input 
         type="checkbox" 
         id="filter" 
         checked={filterChecked} 
-        onChange={handleFilterCheck}
+        onChange={() => setFilterChecked(prev => !prev)}
       />
 
       <label className="label" htmlFor="sort">Sort list</label>
@@ -107,8 +96,19 @@ const Dashboard = () => {
         type="checkbox" 
         id="sort" 
         checked={sortChecked} 
-        onChange={handleSortCheck}
-      />
+        onChange={() => setSortChecked(prev => !prev)}
+      /> */}
+      <div className="filter-buttons">
+        <button 
+          className="btn btn-filter"
+          onClick={() => setFilterChecked(prev => !prev)}
+        >{ !filterChecked ? <><BiHide />Hide Checked</> : <><BiShow />Show All</>}</button>
+        <button 
+          className="btn btn-filter"
+          onClick={() => setSortChecked(prev => !prev)}
+        >{ !sortChecked ? <><BiSortAZ />Sort Alphabetical</> : <><BiSortDown />Sort By Added</>}</button>
+      </div>
+      
       <GroceryForm />
 
       <section className="content">

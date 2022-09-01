@@ -186,6 +186,7 @@ h3 {
 }
 
 .label {
+  color: var(--primary-blue);
   font-weight: 600;
   margin-right: .3rem;
   margin-left: 1rem;
@@ -210,6 +211,7 @@ h3 {
   border-radius: 5px;
   margin-bottom: 10px;
   font-family: inherit;
+  box-shadow: 1px 1px 10px -3px var(--secondary-blue);
 }
 
 .form-group label {
@@ -250,10 +252,37 @@ h3 {
 .btn-block {
   width: 100%;
   margin-bottom: 20px;
+  box-shadow: 1px 1px 10px -2px var(--secondary-blue);
 }
 
 .btn:hover {
   transform: scale(0.98);
+}
+
+.btn-filter {
+  border: 0;
+  background: transparent;
+  font-weight: 400;
+  color: var(--primary-blue);
+  text-shadow: 0px 0px 5px white;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.btn-filter:hover {
+  transform: none;
+  color: var(--secondary-blue);
+}
+
+.btn-filter svg {
+  margin-right: 1px;
+}
+
+.filter-buttons {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: space-evenly;
 }
 
 .loadingSpinnerContainer {

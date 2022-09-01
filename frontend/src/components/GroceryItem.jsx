@@ -1,15 +1,12 @@
 // add to the post update route for checked status
 // try drag n drop
 
-import { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { deleteGrocery, updateGrocery } from "../features/groceries/grocerySlice"
-import { FaCartArrowDown } from 'react-icons/fa'
 import { BsCartXFill, BsCartPlusFill } from 'react-icons/bs'
 import { FiSlash } from 'react-icons/fi'
 
 const GroceryItem = ({grocery}) => {
-  const [isChecked, setIsChecked] = useState()
   const dispatch = useDispatch()
 
   const deleteItem = (e) => {
