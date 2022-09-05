@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getGroceries, reset } from '../features/groceries/grocerySlice'
+import RecipeModal from '../components/RecipeModal'
 import Axios from 'axios'
 import Spinner from '../components/Spinner'
 
@@ -13,6 +14,7 @@ const Recipes = () => {
   const [recipeData, setRecipeData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
+  const [openModal, setOpenModal] = useState(null);
   
   const { user } = useSelector((state) => state.auth)
   const { groceries, isLoading, isError, message } = useSelector((state) => state.groceries)
@@ -20,7 +22,7 @@ const Recipes = () => {
   const [checkedState, setCheckedState] = useState(
     new Array(groceries.length).fill(false)
   );
-console.log("GROCERIES: ", groceries)
+
   useEffect(() => {
     if(isError) {
       console.log("error message:", message)
@@ -79,30 +81,20 @@ console.log("GROCERIES: ", groceries)
     setCheckedState(updatedCheckedState);
   };
 
-  // const list = groceries.map(item => (
-  //     <li key={item._id}>
-  //       <div ClassName="recipe-grocery-list">
-  //         <input
-  //           type="checkbox"
-  //           id={`checkbox-${item._id}`}
-  //           name={item.text}
-  //           value={item.text}
-  //           checked={checkedState[item._id]}
-  //           onChange={() => handleCheckIngredient(item._id)}
-  //         />
-  //         <label htmlFor={`checkbox-${item._id}`}>{item.text}</label>
-  //       </div>
-  //     </li>
-  // ))
-
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
-      return <p key={entry.recipe.uri}>{entry.recipe.label}</p>;
+      console.log(entry)
+      return (
+        <>
+          <p onClick={()=>setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
+        </>
+      )
     });
   }
-console.log("Checked state: ", checkedState)
+
   return (
     <>
+      {openModal && <RecipeModal recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
       <h1>Recipes</h1>
       <ul>
         {groceries.map((item, index) => (

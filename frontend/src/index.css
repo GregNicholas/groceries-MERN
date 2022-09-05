@@ -364,3 +364,19 @@ h3 {
     display: none;
   }
 }
+
+.modal-background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(97, 72, 255, 0.5);
+}
+
+.modal-card {
+  min-width: 350px;
+    width: 80%;
+    max-width: 500px;
+    height: 50%;
+    background: white;
+    margin: 4rem auto;
+}
