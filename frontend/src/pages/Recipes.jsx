@@ -1,17 +1,46 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { getGroceries, reset } from '../features/groceries/grocerySlice'
 import Axios from 'axios'
 import Spinner from '../components/Spinner'
 
 const Recipes = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [recipeData, setRecipeData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   
+  const { user } = useSelector((state) => state.auth)
   const { groceries, isLoading, isError, message } = useSelector((state) => state.groceries)
+
   const [checkedState, setCheckedState] = useState(
     new Array(groceries.length).fill(false)
   );
+console.log("GROCERIES: ", groceries)
+  useEffect(() => {
+    if(isError) {
+      console.log("error message:", message)
+    } 
+    if(!user){
+      navigate('/login')
+    }
+    //fetch groceries if they're not yet in state, for example if user loads directly to this page
+    if(groceries.length < 1){
+      dispatch(getGroceries())
+    } 
+
+    return () => {
+      dispatch(reset)
+    }
+  }, [user, navigate, isError, message, dispatch])
+
+  useEffect(() => {
+    setCheckedState(new Array(groceries.length).fill(false))
+  }, [groceries])
   
   let chosenIngredients = ''
   groceries.forEach((item, index) => {
@@ -19,7 +48,7 @@ const Recipes = () => {
       chosenIngredients += item.text + ' '
     }
   })
-  console.log(chosenIngredients)
+  console.log("Chosen ingredients: ", chosenIngredients)
 
   let recipeTitles = null;
 
@@ -30,13 +59,10 @@ const Recipes = () => {
 
   const getRecipesPage = async (searchUrl) => {
     // const searchUrl = `${url}&q=${ingredient}`;
-    console.log("CUSTOM", searchUrl);
     setLoading(true);
     setError(false);
     try {
       const result = await Axios.get(searchUrl);
-      console.log("res.data", result.data);
-      console.log()
       setRecipeData(result.data);
       setLoading(false);
     } catch (error) {
@@ -74,7 +100,7 @@ const Recipes = () => {
       return <p key={entry.recipe.uri}>{entry.recipe.label}</p>;
     });
   }
-console.log(checkedState)
+console.log("Checked state: ", checkedState)
   return (
     <>
       <h1>Recipes</h1>
