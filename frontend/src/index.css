@@ -7,7 +7,7 @@
   --light-orange: rgb(254, 131, 60);
 }
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -366,9 +366,12 @@ h3 {
 }
 
 .modal-background {
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
   background: rgba(97, 72, 255, 0.5);
 }
 

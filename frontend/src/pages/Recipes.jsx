@@ -83,11 +83,8 @@ const Recipes = () => {
 
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
-      console.log(entry)
       return (
-        <>
-          <p onClick={()=>setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
-        </>
+          <p onClick={() => setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
       )
     });
   }
