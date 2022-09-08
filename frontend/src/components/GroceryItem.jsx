@@ -1,6 +1,3 @@
-// add to the post update route for checked status
-// try drag n drop
-
 import { useDispatch } from "react-redux"
 import { deleteGrocery, updateGrocery } from "../features/groceries/grocerySlice"
 import { BsCartXFill, BsCartPlusFill } from 'react-icons/bs'

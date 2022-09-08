@@ -149,6 +149,11 @@ h3 {
   box-shadow: 1px 1px 10px -2px var(--secondary-blue);
 }
 
+.grocery:hover {
+  box-shadow: 1px 1px 10px var(--secondary-blue);
+  filter: brightness(1.1);
+}
+
 .grocery .close {
   position: absolute;
   top: 8px;
@@ -373,13 +378,53 @@ h3 {
   right: 0;
   height: 100vh;
   background: rgba(97, 72, 255, 0.5);
+  overflow: scroll;
 }
 
-.modal-card {
-  min-width: 350px;
+.recipe-card {
+  width: 350px;
+  background: white;
+  margin: 4rem auto;
+  padding: .5rem;
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px var(--primary-blue);
+}
+
+.recipe-body {
+  padding: 1rem 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recipe-image {
+  max-width: 400px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 0 4px var(--secondary-blue);
+}
+
+.recipe-body ul {
+  list-style: disc;
+  margin-left: 1rem;
+}
+
+.recipe-ingredient {
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+@media only screen and (min-width: 750px) {
+  .recipe-card {
+    min-width: 350px;
+    max-width: 900px;
     width: 80%;
-    max-width: 500px;
-    height: 50%;
-    background: white;
-    margin: 4rem auto;
+    margin: 4rem 10%;
+    width: fit-content;
+  }
+
+  .recipe-body {
+    flex-direction: row-reverse;
+  }
 }

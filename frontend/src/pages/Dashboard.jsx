@@ -38,10 +38,13 @@ const Dashboard = () => {
   }, [user, navigate, isError, message, dispatch])
 
   useEffect(() => {
-    setFilteredGroceries(groceries)
+    if(!sortChecked && !filterChecked){
+      setFilteredGroceries(groceries)
+    }
   }, [isLoading])
 
   useEffect(() => {
+    console.log("useeffect ")
       if(filterChecked && !sortChecked){
           const newList = groceries.filter(item => {
           return !item.isInCart 
@@ -84,27 +87,13 @@ const Dashboard = () => {
         <h1>{greeting} {user && user.name}</h1>
       </section>
 
-      {/* <label className="label" htmlFor="filter">Hide checked</label>
-      <input 
-        type="checkbox" 
-        id="filter" 
-        checked={filterChecked} 
-        onChange={() => setFilterChecked(prev => !prev)}
-      />
-
-      <label className="label" htmlFor="sort">Sort list</label>
-      <input 
-        type="checkbox" 
-        id="sort" 
-        checked={sortChecked} 
-        onChange={() => setSortChecked(prev => !prev)}
-      /> */}
-
       {groceries.length > 0 && (
         <Link className="recipe-link" to='/recipes'>
             Explore Recipes
         </Link>
       )}
+      
+      <GroceryForm />
 
       <div className="filter-buttons">
         <button 
@@ -116,8 +105,6 @@ const Dashboard = () => {
           onClick={() => setSortChecked(prev => !prev)}
         >{ !sortChecked ? <><BiSortAZ />Sort Alphabetical</> : <><BiSortDown />Sort By Added</>}</button>
       </div>
-      
-      <GroceryForm />
 
       <section className="content">
         {filteredGroceries.length > 0 ? (

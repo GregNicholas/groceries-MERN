@@ -50,7 +50,6 @@ const Recipes = () => {
       chosenIngredients += item.text + ' '
     }
   })
-  console.log("Chosen ingredients: ", chosenIngredients)
 
   let recipeTitles = null;
 
