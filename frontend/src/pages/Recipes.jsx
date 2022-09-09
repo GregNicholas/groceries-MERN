@@ -83,7 +83,7 @@ const Recipes = () => {
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
       return (
-          <p onClick={() => setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
+          <p className="recipe-names" onClick={() => setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
       )
     });
   }
@@ -91,7 +91,8 @@ const Recipes = () => {
   return (
     <>
       {openModal && <RecipeModal recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
-      <h1>Recipes</h1>
+      <h1 className="recipe-heading">Recipe Finder</h1>
+      <p className="recipe-caption">Check ingredient(s) you would like to find recipes with</p>
       <ul>
         {groceries.map((item, index) => (
             <li key={item._id}>
@@ -109,16 +110,15 @@ const Recipes = () => {
             </li>
         ))}
       </ul>
+      {/* { chosenIngredients.length > 0 &&  */}
+        <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
+      {/* } */}
       {loading && <Spinner />}
       {recipeTitles && 
         <>
           {recipeTitles}
-          {recipeData._links.next && <button onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
-        </>}
-      { chosenIngredients.length > 0 && 
-        <button onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
-      }
-      
+          {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
+        </>}      
     </>
   )
 }

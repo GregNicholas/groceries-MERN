@@ -84,9 +84,9 @@ const Dashboard = () => {
   return (
     <>
       <section className="heading hero">
-        <h1>{greeting} {user && user.name}</h1>
+        <h2>{greeting} {user && user.name}</h2>
       </section>
-
+      <h1>Grocery List</h1>
       {groceries.length > 0 && (
         <Link className="recipe-link" to='/recipes'>
             Explore Recipes
