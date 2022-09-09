@@ -23,6 +23,16 @@ const Recipes = () => {
     new Array(groceries.length).fill(false)
   );
 
+  let recipeTitles = null;
+
+  // const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
+  // const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
+  // keys for deployment on heroku not working. VITE issue?
+  const APP_KEY = "4fcb252b75864cec9d67d4bcadde52ee"
+  const APP_ID = "e6f2ebdf"
+  const url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`
+
+
   useEffect(() => {
     if(isError) {
       console.log("error message:", message)
@@ -50,13 +60,6 @@ const Recipes = () => {
       chosenIngredients += item.text + ' '
     }
   })
-
-  let recipeTitles = null;
-
-  const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
-  const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
-
-  const url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`
 
   const getRecipesPage = async (searchUrl) => {
     // const searchUrl = `${url}&q=${ingredient}`;
