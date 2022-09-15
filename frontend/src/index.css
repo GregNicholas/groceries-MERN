@@ -269,8 +269,10 @@ h1 {
   box-shadow: 1px 1px 10px -2px var(--secondary-blue);
 }
 
-.btn:hover {
-  transform: scale(0.98);
+.btn-block:hover {
+  background: var(--secondary-blue);
+  border: 1px solid var(--secondary-blue);
+  color: var(--primary-blue);
 }
 
 .btn-filter {
@@ -394,6 +396,42 @@ h1 {
   padding: .5rem;
   border-radius: 15px;
   box-shadow: 1px 1px 5px var(--primary-blue);
+}
+
+.recipe-actions {
+  margin: 5px 5px 5px 5px;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipe-favorite {
+  color: var(--light-orange);
+  cursor: pointer;
+  padding: 1px 3px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.recipe-favorite:hover {
+  background: var(--light-orange);
+  color: white;
+}
+
+.icon-text {
+  font-size: 0.9rem;
+}
+
+.close-button {
+  padding: 2px;
+  color: var(--light-orange);
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: orangered;
 }
 
 .recipe-body {
