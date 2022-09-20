@@ -1,9 +1,21 @@
 import { CgCloseO, CgHeart, CgPlayListAdd } from 'react-icons/cg'
+import { useDispatch } from 'react-redux'
+import { createGrocery } from '../features/groceries/grocerySlice'
 
 const RecipeModal = ({recipeInfo, closeModal}) => {
     
+  const dispatch = useDispatch()
+
   const addIngredients = () => {
     console.log("recipeInfo", recipeInfo.recipe.ingredientLines)
+    const text = "jelllllooooo"
+    // dispatch(createGrocery({ text: recipeInfo.recipe.ingredientLines[0] }))
+    
+    recipeInfo.recipe.ingredientLines.forEach(ingredient => {
+        console.log(typeof ingredient)
+        dispatch(createGrocery({ text: ingredient }))
+    })
+    closeModal()
   }
 
   return (

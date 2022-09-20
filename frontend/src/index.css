@@ -140,6 +140,10 @@ h1 {
   background-image: url("./assets/paper-bag-bg.jpg");
 }
 
+.main-caption {
+  margin-bottom: 1rem;
+}
+
 .groceries {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   const { user } = useSelector((state) => state.auth)
   const { groceries, isLoading, isError, message } = useSelector((state) => state.groceries)
-  
+
   const [filterChecked, setFilterChecked] = useState(false);
   const [sortChecked, setSortChecked] = useState(false);
   const [filteredGroceries, setFilteredGroceries] = useState(null);
@@ -86,12 +86,18 @@ const Dashboard = () => {
       <section className="heading hero">
         <h2>{greeting} {user && user.name}</h2>
       </section>
-      <h1>Grocery List</h1>
-      {groceries.length > 0 && (
-        <Link className="recipe-link" to='/recipes'>
-            Explore Recipes
-        </Link>
-      )}
+      <section className="content intro">
+        <h1>Grocery List</h1>
+        <p className="main-caption">Type in any items you need to build your list. </p>
+        {groceries.length > 0 && (
+          <>
+            <p className="main-caption">Click the button below to explore recipes using your chosen combination of ingredients.</p>
+            <Link className="recipe-link" to='/recipes'>
+                Explore Recipes
+            </Link>
+          </>
+        )}
+      </section>
       
       <GroceryForm />
 

@@ -13,13 +13,14 @@ const GroceryForm = () => {
     }
 
     const handleSubmit = (e) => {
+        console.log("ADD: ", text)
         e.preventDefault()
         if(text.length > 0){
             dispatch(createGrocery({ text }))
             setText('')
         }
-        
     }
+
   return (
     <section className="form">
         <form onSubmit={handleSubmit}>
