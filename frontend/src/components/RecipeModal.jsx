@@ -6,13 +6,8 @@ const RecipeModal = ({recipeInfo, closeModal}) => {
     
   const dispatch = useDispatch()
 
-  const addIngredients = () => {
-    console.log("recipeInfo", recipeInfo.recipe.ingredientLines)
-    const text = "jelllllooooo"
-    // dispatch(createGrocery({ text: recipeInfo.recipe.ingredientLines[0] }))
-    
+  const addIngredients = () => {    
     recipeInfo.recipe.ingredientLines.forEach(ingredient => {
-        console.log(typeof ingredient)
         dispatch(createGrocery({ text: ingredient }))
     })
     closeModal()

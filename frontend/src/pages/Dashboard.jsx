@@ -91,7 +91,7 @@ const Dashboard = () => {
         <p className="main-caption">Type in any items you need to build your list. </p>
         {groceries.length > 0 && (
           <>
-            <p className="main-caption">Click the button below to explore recipes using your chosen combination of ingredients.</p>
+            <p className="main-caption">Click the button below to explore recipes using ingredients from your list.</p>
             <Link className="recipe-link" to='/recipes'>
                 Explore Recipes
             </Link>
