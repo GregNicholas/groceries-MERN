@@ -59,10 +59,26 @@ export const updateGrocery = createAsyncThunk('groceries/update', async(updateDa
   }
 })
 
-export const deleteGrocery = createAsyncThunk('groceries/delete', async(id, thunkAPI) => {
+export const deleteGrocery = createAsyncThunk('groceries/deleteAll', async(id, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
     return await groceryService.deleteGrocery(id, token)
+  } catch (err) {
+        console.log("ERROR: ", err)
+            const message = 
+                (err.response && 
+                  err.response.data && 
+                  err.response.data.message) || 
+                err.message || 
+                err.toString()
+            return thunkAPI.rejectWithValue(message)
+  }
+})
+
+export const deleteAllGroceries = createAsyncThunk('groceries/delete', async(_, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token
+    return await groceryService.deleteAllGroceries(token)
   } catch (err) {
         console.log("ERROR: ", err)
             const message = 
@@ -133,6 +149,19 @@ export const grocerySlice = createSlice({
               return grocery._id !== action.payload.id})
           })
           .addCase(deleteGrocery.rejected, (state, action) => {
+            state.isLoading = false
+            state.isError = true
+            state.message = action.payload
+          })
+          .addCase(deleteAllGroceries.pending, (state) => {
+            state.isLoading = true
+          })
+          .addCase(deleteAllGroceries.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.groceries = [];
+          })
+          .addCase(deleteAllGroceries.rejected, (state, action) => {
             state.isLoading = false
             state.isError = true
             state.message = action.payload

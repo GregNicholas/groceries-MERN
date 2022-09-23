@@ -4,11 +4,12 @@ const {
         getGroceries, 
         createGrocery, 
         updateGrocery, 
-        deleteGrocery 
+        deleteGrocery,
+        deleteAllGroceries
     } = require('../controllers/groceryController')
 const { protect } = require('../middleware/authMiddleware')
 
-    router.route('/').get(protect, getGroceries).post(protect, createGrocery)
+    router.route('/').get(protect, getGroceries).post(protect, createGrocery).delete(protect, deleteAllGroceries)
     router.route('/:id').put(protect, updateGrocery).delete(protect, deleteGrocery)
 
 module.exports = router

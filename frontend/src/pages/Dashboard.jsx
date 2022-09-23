@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import GroceryForm from '../components/GroceryForm'
 import Spinner from '../components/Spinner'
 import GroceryItem from '../components/GroceryItem'
-import { getGroceries, reset } from '../features/groceries/grocerySlice'
+import { getGroceries, reset, deleteAllGroceries } from '../features/groceries/grocerySlice'
 import { BiHide, BiShow, BiSortAZ, BiSortDown } from 'react-icons/bi'
 
 const Dashboard = () => {
@@ -44,7 +44,6 @@ const Dashboard = () => {
   }, [isLoading])
 
   useEffect(() => {
-    console.log("useeffect ")
       if(filterChecked && !sortChecked){
           const newList = groceries.filter(item => {
           return !item.isInCart 
@@ -88,6 +87,7 @@ const Dashboard = () => {
       </section>
       <section className="content intro">
         <h1>Grocery List</h1>
+        <button onClick={() => dispatch(deleteAllGroceries())}>DELETE ALL</button>
         <p className="main-caption">Type in any items you need to build your list. </p>
         {groceries.length > 0 && (
           <>

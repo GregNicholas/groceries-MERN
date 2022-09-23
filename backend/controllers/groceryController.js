@@ -89,6 +89,29 @@ const deleteGrocery = asyncHandler(async (req, res) => {
     res.status(200).json({id: `${req.params.id}`})
 })
 
+// @desc Delete all groceries
+// @route DELETE /api/groceries/
+// @access Private
+const deleteAllGroceries = asyncHandler(async (req, res) => {
+    const groceries = await Grocery.find({ user: req.user.id})
+
+    // Check for user
+    if(!req.user) {
+        res.status(401)
+        throw new Error('user not found')
+    }
+
+    if(groceries.length > 0){
+        await Grocery.deleteMany({'_id':{'$in':groceries}})
+    
+        res.status(200).json()
+    } else {
+        res.status(400)
+        throw new Error('no groceries found')
+    }
+    
+})
+
 module.exports = {
-    getGroceries, createGrocery, updateGrocery, deleteGrocery
+    getGroceries, createGrocery, updateGrocery, deleteGrocery, deleteAllGroceries
 }

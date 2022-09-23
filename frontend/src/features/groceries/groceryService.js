@@ -45,13 +45,14 @@ const deleteGrocery = async (groceryId, token) => {
     return response.data
 }
 
-const deleteAll = async () => {
+const deleteAllGroceries = async (token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
-    // const response = await axios.delete
+    const response = await axios.delete(API_URL, config)
+    return response.data
 }
 
 const groceryService = {
@@ -59,6 +60,7 @@ const groceryService = {
     getGroceries,
     updateGrocery,
     deleteGrocery,
+    deleteAllGroceries
 }
 
 export default groceryService
