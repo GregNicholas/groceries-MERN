@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import GroceryForm from '../components/GroceryForm'
+import DeleteWarning from '../components/DeleteWarning'
 import Spinner from '../components/Spinner'
 import GroceryItem from '../components/GroceryItem'
 import { getGroceries, reset, deleteAllGroceries } from '../features/groceries/grocerySlice'
@@ -18,6 +19,7 @@ const Dashboard = () => {
   const [filterChecked, setFilterChecked] = useState(false);
   const [sortChecked, setSortChecked] = useState(false);
   const [filteredGroceries, setFilteredGroceries] = useState(null);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false)
 
   const time = new Date().getHours()
   const greeting = time < 12 ? "Good morning, " : time < 18 ? "Good afternoon, " : "Good evening, "
@@ -76,18 +78,28 @@ const Dashboard = () => {
     
   }, [filterChecked, sortChecked, groceries])
 
+  const deleteAllItems = () => {
+    () => dispatch(deleteAllGroceries())
+    setShowDeleteWarning(false)
+  }
+
+  const warnDelete = () => {
+    setShowDeleteWarning(true)
+  }
+
   if (!filteredGroceries){
     return <Spinner />
   }
 
   return (
     <>
+      {showDeleteWarning && <DeleteWarning closeModal={() => setShowDeleteWarning(false)} onClick={deleteAllItems} />}
       <section className="heading hero">
         <h2>{greeting} {user && user.name}</h2>
       </section>
       <section className="content intro">
         <h1>Grocery List</h1>
-        <button onClick={() => dispatch(deleteAllGroceries())}>DELETE ALL</button>
+        <button onClick={warnDelete}>DELETE ALL</button>
         <p className="main-caption">Type in any items you need to build your list. </p>
         {groceries.length > 0 && (
           <>
