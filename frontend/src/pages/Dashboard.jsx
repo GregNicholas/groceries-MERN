@@ -79,7 +79,7 @@ const Dashboard = () => {
   }, [filterChecked, sortChecked, groceries])
 
   const deleteAllItems = () => {
-    () => dispatch(deleteAllGroceries())
+    dispatch(deleteAllGroceries())
     setShowDeleteWarning(false)
   }
 
