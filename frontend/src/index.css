@@ -298,6 +298,40 @@ h1 {
   margin-right: 1px;
 }
 
+.btn-action {
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 3px 8px grey;
+}
+.btn-action:hover {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
+.btn-action:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}
+
+.btn-delete {
+  background: firebrick;
+}
+
+.cancel-delete {
+  background: var(--primary-blue)
+}
+
+.confirm-delete {
+  background: red;
+}
+
+.confirm-select {
+  display: flex;
+  justify-content: space-around;
+}
+
 .filter-buttons {
   display: flex;
   width: 90%;
@@ -388,12 +422,19 @@ h1 {
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
   background: rgba(97, 72, 255, 0.5);
   overflow: scroll;
+  z-index: 100;
 }
 
 .recipe-card {
+  max-height: 98vh;
+  overflow-y: scroll;
+  position: absolute;
   width: 350px;
   background: white;
   margin: 4rem auto;
@@ -420,12 +461,14 @@ h1 {
 }
 
 .recipe-favorite:hover {
-  background: var(--light-orange);
-  color: white;
+  /* background: var(--light-orange);
+  color: white; */
+  border:1px solid var(--light-orange);
+  padding: 0 2px;
 }
 
 .icon-text {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .close-button {
@@ -479,6 +522,10 @@ h1 {
     width: 80%;
     margin: 4rem 10%;
     width: fit-content;
+  }
+
+  .icon-text {
+    font-size: 1.1rem;
   }
 
   .recipe-title {

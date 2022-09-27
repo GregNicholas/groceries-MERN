@@ -99,7 +99,7 @@ const Dashboard = () => {
       </section>
       <section className="content intro">
         <h1>Grocery List</h1>
-        <button onClick={warnDelete}>DELETE ALL</button>
+        
         <p className="main-caption">Type in any items you need to build your list. </p>
         {groceries.length > 0 && (
           <>
@@ -109,6 +109,7 @@ const Dashboard = () => {
             </Link>
           </>
         )}
+        
       </section>
       
       <GroceryForm />
@@ -134,6 +135,7 @@ const Dashboard = () => {
         ) : (<h3>Your list is empty</h3>) 
         }
       </section>
+      {filteredGroceries.length > 0 && <button className="btn-action btn-delete" onClick={warnDelete}>DELETE ALL</button>}
     </>
   )
 }
