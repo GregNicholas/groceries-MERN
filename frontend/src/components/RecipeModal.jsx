@@ -4,7 +4,7 @@ import { createGrocery } from '../features/groceries/grocerySlice'
 import ModalContainer from './ModalContainer'
 
 const RecipeModal = ({recipeInfo, closeModal}) => {
-    
+    console.log(recipeInfo)
   const dispatch = useDispatch()
 
   const addIngredients = () => {    
