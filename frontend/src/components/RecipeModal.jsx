@@ -1,4 +1,5 @@
 import { CgCloseO, CgHeart, CgPlayListAdd } from 'react-icons/cg'
+import { TiHeartOutline, TiHeartFullOutline } from 'react-icons/ti'
 import { useDispatch } from 'react-redux'
 import { createGrocery } from '../features/groceries/grocerySlice'
 import ModalContainer from './ModalContainer'
@@ -14,10 +15,14 @@ const RecipeModal = ({recipeInfo, closeModal}) => {
     closeModal()
   }
 
+  const addToFavorites = () => {
+
+  }
+
   return (
     <ModalContainer closeModal={closeModal}>
         <div className="recipe-actions">
-            <div className="recipe-favorite"><CgHeart /><span className="icon-text">SAVE</span></div>
+            <div onClick={addToFavorites} className="recipe-favorite"><TiHeartOutline /><span className="icon-text">SAVE</span></div>
             <div onClick={addIngredients} className="recipe-favorite"><CgPlayListAdd /><span className="icon-text">ADD ITEMS TO LIST</span></div>
             <CgCloseO className="close-button" onClick={closeModal} />
         </div>

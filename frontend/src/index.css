@@ -461,10 +461,13 @@ h1 {
 }
 
 .recipe-favorite:hover {
-  /* background: var(--light-orange);
-  color: white; */
   border:1px solid var(--light-orange);
   padding: 0 2px;
+}
+
+.recipe-favorite:active {
+  background: var(--light-orange);
+  color: white;
 }
 
 .icon-text {

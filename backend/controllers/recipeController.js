@@ -15,18 +15,18 @@ const getRecipes = asyncHandler(async (req, res) => {
 // @route POST /api/recipes
 // @access Private
 const createRecipe = asyncHandler(async (req, res) => {
-    if(!req.body.text) {
+    if(!req.body.recipe) {
         res.status(400)
         throw new Error('Not a valid recipe')
     }
 
-    const grocery  = await Recipe.create({
+    const recipe  = await Recipe.create({
         recipe: req.body.recipe,
         user: req.user.id,
         mealType: req.body.mealType,
     })
 
-    res.status(200).json(grocery)
+    res.status(200).json(recipe)
 })
 
 // @desc Delete recipe
@@ -47,7 +47,7 @@ const deleteRecipe = asyncHandler(async (req, res) => {
     }
 
     // make sure the logged in user matches recipe user
-    if(grocery.user.toString() !== req.user.id){
+    if(recipe.user.toString() !== req.user.id){
         res.status(401)
         throw new Error(`user not authorized`)
     }
