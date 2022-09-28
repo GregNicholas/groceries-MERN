@@ -9,7 +9,7 @@ const initialState = {
     message: '',
 }
 
-// Create Grocery Item
+// Create Recipe Item
 export const createRecipe = 
     createAsyncThunk('recipes/create', 
     async (recipeData, thunkAPI) => {
@@ -90,7 +90,7 @@ export const recipeSlice = createSlice({
           .addCase(createRecipe.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-            state.groceries.push(action.payload)
+            state.recipes.push(action.payload)
           })
           .addCase(createRecipe.rejected, (state, action) => {
             state.isLoading = false
@@ -103,15 +103,12 @@ export const recipeSlice = createSlice({
           .addCase(getRecipes.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-            state.groceries = action.payload
+            state.recipes = action.payload
           })
           .addCase(getRecipes.rejected, (state, action) => {
             state.isLoading = false
             state.isError = true
             state.message = action.payload
-          })
-          .addCase(updateGrocery.pending, (state) => {
-            state.isLoading = true
           })
           .addCase(deleteRecipe.pending, (state) => {
             state.isLoading = true
@@ -119,8 +116,8 @@ export const recipeSlice = createSlice({
           .addCase(deleteRecipe.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-            state.groceries = state.groceries.filter((grocery) => {
-              return grocery._id !== action.payload.id})
+            state.recipes = state.recipes.filter((recipe) => {
+              return recipe._id !== action.payload.id})
           })
           .addCase(deleteRecipe.rejected, (state, action) => {
             state.isLoading = false
