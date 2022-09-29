@@ -80,7 +80,7 @@ export const recipeSlice = createSlice({
     name: 'recipe',
     initialState,
     reducers: {
-        reset: (state) => initialState
+        resetRecipes: (state) => initialState
     },
     extraReducers: (builder) => {
         builder
@@ -127,5 +127,5 @@ export const recipeSlice = createSlice({
     }
 })
 
-export const { reset } = recipeSlice.actions
+export const { resetRecipes } = recipeSlice.actions
 export default recipeSlice.reducer

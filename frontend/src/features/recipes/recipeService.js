@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// axios.defaults.baseURL = `http://localhost:2121`
 const API_URL = '/api/recipes/'
 
 const createRecipe = async (recipeData, token) => {
@@ -32,9 +33,9 @@ const deleteRecipe = async (recipeId, token) => {
     return response.data
 }
 
-const groceryService = {
+const recipeService = {
     createRecipe,
-    getRecipe,
+    getRecipes,
     deleteRecipe,
 }
 

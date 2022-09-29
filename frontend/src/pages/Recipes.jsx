@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getGroceries, reset } from '../features/groceries/grocerySlice'
+import { getRecipes, resetRecipes } from '../features/recipes/recipeSlice'
 import RecipeModal from '../components/RecipeModal'
-import Axios from 'axios'
+import RecipeIngredientsList from '../components/RecipeIngredientsList'
+import FavoriteRecipesList from '../components/FavoriteRecipesList'
 import Spinner from '../components/Spinner'
+import Axios from 'axios'
 
 const Recipes = () => {
   const navigate = useNavigate()
@@ -15,16 +18,17 @@ const Recipes = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   const [openModal, setOpenModal] = useState(null);
+  const [showFavorites, setShowFavorites] = useState(false);
   
   const { user } = useSelector((state) => state.auth)
   const { groceries, isLoading, isError, message } = useSelector((state) => state.groceries)
-
+  const { recipes, isRecipesLoading, isRecipesError, recipesMessage } = useSelector((state) => state.recipes)
   const [checkedState, setCheckedState] = useState(
     new Array(groceries.length).fill(false)
   );
 
   let recipeTitles = null;
-
+    console.log(recipes)
   // const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
   // const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
   // keys for deployment on heroku not working. VITE issue?
@@ -37,6 +41,10 @@ const Recipes = () => {
     if(isError) {
       console.log("error message:", message)
     } 
+    if(isRecipesError){
+      console.log("Recipe error: ", recipesMessage)
+    }
+
     if(!user){
       navigate('/login')
     }
@@ -45,8 +53,11 @@ const Recipes = () => {
       dispatch(getGroceries())
     } 
 
+    dispatch(getRecipes())
+
     return () => {
       dispatch(reset)
+      dispatch(resetRecipes)
     }
   }, [user, navigate, isError, message, dispatch])
 
@@ -62,7 +73,6 @@ const Recipes = () => {
   })
 
   const getRecipesPage = async (searchUrl) => {
-    // const searchUrl = `${url}&q=${ingredient}`;
     setLoading(true);
     setError(false);
     try {
@@ -94,34 +104,21 @@ const Recipes = () => {
   return (
     <>
       {openModal && <RecipeModal recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
+      {loading && <Spinner />}
+      <button onClick={() => setShowFavorites(prev => !prev)}>
+        {showFavorites ? "Search Recipes" : "Show Favorites"}
+      </button>
       <h1 className="recipe-heading">Recipe Finder</h1>
       <p className="recipe-caption">Check ingredient(s) you would like to find recipes with</p>
-      <ul>
-        {groceries.map((item, index) => (
-            <li key={item._id}>
-              <div className="recipe-grocery-list">
-                <input
-                  type="checkbox"
-                  id={`checkbox-${item._id}`}
-                  name={item.text}
-                  value={item.text}
-                  checked={checkedState[index]}
-                  onChange={() => handleCheckIngredient(index)}
-                />
-                <label htmlFor={`checkbox-${item._id}`}>{item.text}</label>
-              </div>
-            </li>
-        ))}
-      </ul>
-      {/* { chosenIngredients.length > 0 &&  */}
+      <div>
+        <RecipeIngredientsList groceries={groceries} handleClick={handleCheckIngredient} checkedState={checkedState} />
         <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
-      {/* } */}
-      {loading && <Spinner />}
-      {recipeTitles && 
-        <>
-          {recipeTitles}
-          {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
-        </>}      
+        {recipeTitles && 
+          <>
+            {recipeTitles}
+            {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
+          </>}   
+      </div>   
     </>
   )
 }

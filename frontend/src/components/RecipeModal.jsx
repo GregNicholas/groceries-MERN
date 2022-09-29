@@ -2,6 +2,7 @@ import { CgCloseO, CgHeart, CgPlayListAdd } from 'react-icons/cg'
 import { TiHeartOutline, TiHeartFullOutline } from 'react-icons/ti'
 import { useDispatch } from 'react-redux'
 import { createGrocery } from '../features/groceries/grocerySlice'
+import { createRecipe } from '../features/recipes/recipeSlice'
 import ModalContainer from './ModalContainer'
 
 const RecipeModal = ({recipeInfo, closeModal}) => {
@@ -9,14 +10,21 @@ const RecipeModal = ({recipeInfo, closeModal}) => {
   const dispatch = useDispatch()
 
   const addIngredients = () => {    
-    recipeInfo.recipe.ingredientLines.forEach(ingredient => {
-        dispatch(createGrocery({ text: ingredient }))
+    recipeInfo.recipe.ingredients.forEach(ingredient => {
+        dispatch(createGrocery({ text: ingredient.food }))
     })
     closeModal()
   }
 
   const addToFavorites = () => {
-
+    if(recipeInfo.recipe.label.length > 0){
+        console.log("ADD Recipe: ", recipeInfo.recipe.label, recipeInfo._links.self.href)
+        dispatch(createRecipe({ 
+                recipe: recipeInfo._links.self.href,
+                title: recipeInfo.recipe.label,
+                mealType: recipeInfo.recipe.dishType[0]
+            }))
+    }
   }
 
   return (

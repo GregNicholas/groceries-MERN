@@ -22,6 +22,7 @@ const createRecipe = asyncHandler(async (req, res) => {
 
     const recipe  = await Recipe.create({
         recipe: req.body.recipe,
+        title: req.body.title,
         user: req.user.id,
         mealType: req.body.mealType,
     })

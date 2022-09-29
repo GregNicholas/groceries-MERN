@@ -11,9 +11,13 @@ const recipeSchema = mongoose.Schema(
            type: String,
            required: [true, 'recipe link'],
        },
+       title: {
+           type: String,
+           required: [true, 'recipe link']
+       },
        mealType: {
            type: String,
-           required: [true, 'lunch, dinner, breakfast, dessert'],
+           required: [true, 'dessert'],
        }
     },
     {
