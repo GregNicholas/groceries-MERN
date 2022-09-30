@@ -28,7 +28,6 @@ const Recipes = () => {
   );
 
   let recipeTitles = null;
-    console.log(recipes)
   // const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
   // const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
   // keys for deployment on heroku not working. VITE issue?
@@ -96,7 +95,7 @@ const Recipes = () => {
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
       return (
-          <p className="recipe-names" onClick={() => setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
+          <p className="recipe-names search-list" onClick={() => setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
       )
     });
   }
@@ -105,20 +104,29 @@ const Recipes = () => {
     <>
       {openModal && <RecipeModal recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
       {loading && <Spinner />}
-      <button onClick={() => setShowFavorites(prev => !prev)}>
+      <button className="recipe-button" onClick={() => setShowFavorites(prev => !prev)}>
         {showFavorites ? "Search Recipes" : "Show Favorites"}
       </button>
-      <h1 className="recipe-heading">Recipe Finder</h1>
-      <p className="recipe-caption">Check ingredient(s) you would like to find recipes with</p>
-      <div>
-        <RecipeIngredientsList groceries={groceries} handleClick={handleCheckIngredient} checkedState={checkedState} />
-        <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
-        {recipeTitles && 
-          <>
-            {recipeTitles}
-            {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
-          </>}   
-      </div>   
+      {showFavorites ? 
+        <div className="recipe-favorites">
+          <h1 className="recipe-heading">My Favorite Recipes</h1>
+          <FavoriteRecipesList recipes={recipes} />
+        </div>
+        :
+        <div className="recipe-finder">
+          <h1 className="recipe-heading">Recipe Finder</h1>
+          <p className="recipe-caption">Check ingredient(s) you would like to find recipes with</p>
+            <RecipeIngredientsList groceries={groceries} handleClick={handleCheckIngredient} checkedState={checkedState} />
+            <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
+            {recipeTitles && 
+              <>
+              <div className="recipe-names">
+                {recipeTitles}
+              </div>
+                {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
+              </>}   
+        </div>
+      }
     </>
   )
 }

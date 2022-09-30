@@ -24,7 +24,7 @@ const Dashboard = () => {
   const time = new Date().getHours()
   const greeting = time < 12 ? "Good morning, " : time < 18 ? "Good afternoon, " : "Good evening, "
 
-  useEffect(() => {
+useEffect(() => {
     if(isError) {
       console.log("error message:", message)
     } 

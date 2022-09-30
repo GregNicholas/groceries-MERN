@@ -167,21 +167,24 @@ h1 {
   filter: brightness(1.1);
 }
 
-.grocery .close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
+.close {
   color: rgb(225,0,0);
   cursor: pointer;
   border: none;
   background: none;
 }
 
-.grocery .close:hover {
+.grocery .close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+.close:hover {
   scale: 1.4;
 }
 
-.grocery .close:active {
+.close:active {
   scale: 1;
 }
 
@@ -349,15 +352,21 @@ h1 {
   padding: 4px 10px;
   color: var(--primary-blue);
   cursor: pointer;
+  box-shadow: 0 2px 5px var(--primary-blue);
 }
 
 .recipe-link:hover, .recipe-button:hover {
-  color: white;
-  background: var(--primary-blue);
-  border-color: var(--primary-blue);
+  color: white; 
+  background: var(--secondary-blue);
+  border-color: var(--secondary-blue);
 }
 
-.recipe-link:active, .recipe-button:active, .recipe-button:disabled {
+.recipe-link:active, .recipe-button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.recipe-button:disabled {
   color: var(--secondary-blue);
   border-color: var(--secondary-blue);
   background: transparent;
@@ -369,6 +378,40 @@ h1 {
 
 .recipe-names {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-names:hover {
+  
+}
+
+.search-list {
+  display: block;
+}
+.search-list:hover {
+  border-bottom: 1px solid var(--secondary-blue);
+}
+
+.recipe-favorites {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-favorite-title{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+.recipe-favorite-title .close {
+  position: relative;
+}
+.recipe-favorite-title:hover {
+  border-bottom: 1px solid var(--secondary-blue);
 }
 
 .loadingSpinnerContainer {
