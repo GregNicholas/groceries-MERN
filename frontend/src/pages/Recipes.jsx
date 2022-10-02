@@ -9,6 +9,7 @@ import RecipeIngredientsList from '../components/RecipeIngredientsList'
 import FavoriteRecipesList from '../components/FavoriteRecipesList'
 import Spinner from '../components/Spinner'
 import Axios from 'axios'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Recipes = () => {
   const navigate = useNavigate()
@@ -95,7 +96,18 @@ const Recipes = () => {
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
       return (
-          <p className="recipe-names search-list" onClick={() => setOpenModal(entry)} key={entry.recipe.uri}>{entry.recipe.label}</p>
+      // <AnimatePresence>
+          <motion.p 
+            key={entry.recipe.uri}
+            className="recipe-names search-list" 
+            onClick={() => setOpenModal(entry)} 
+            initial={{delay: 1000, x: "-100%", scale: 0}}
+            animate={{x: 0, scale: 1}}
+            exit={{x: "100%", scale: 0, display: "inline"}}
+          >
+            {entry.recipe.label}
+          </motion.p>
+        // </AnimatePresence> 
       )
     });
   }
@@ -120,9 +132,15 @@ const Recipes = () => {
             <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
             {recipeTitles && 
               <>
+              {/* <motion.div 
+                className="recipe-names"
+                initial={{x: "-100%", scale: 0.1}}
+                animate={{x: 0, scale: 1}}
+              > */}
               <div className="recipe-names">
                 {recipeTitles}
               </div>
+              {/* </motion.div> */}
                 {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
               </>}   
         </div>
