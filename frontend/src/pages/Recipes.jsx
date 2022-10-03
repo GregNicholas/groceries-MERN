@@ -9,7 +9,7 @@ import RecipeIngredientsList from '../components/RecipeIngredientsList'
 import FavoriteRecipesList from '../components/FavoriteRecipesList'
 import Spinner from '../components/Spinner'
 import Axios from 'axios'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const Recipes = () => {
   const navigate = useNavigate()
@@ -96,18 +96,16 @@ const Recipes = () => {
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
       return (
-      // <AnimatePresence>
           <motion.p 
             key={entry.recipe.uri}
             className="recipe-names search-list" 
             onClick={() => setOpenModal(entry)} 
-            initial={{delay: 1000, x: "-100%", scale: 0}}
+            initial={{delay: 1, x: "-100%", scale: 0}}
             animate={{x: 0, scale: 1}}
-            exit={{x: "100%", scale: 0, display: "inline"}}
+            transition={{ type: "tween" }}
           >
             {entry.recipe.label}
           </motion.p>
-        // </AnimatePresence> 
       )
     });
   }
