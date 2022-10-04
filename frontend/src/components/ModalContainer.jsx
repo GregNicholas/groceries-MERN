@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const ModalContainer = ({children, closeModal}) => {
 
   return (
@@ -5,9 +7,14 @@ const ModalContainer = ({children, closeModal}) => {
         onClick={closeModal} 
         className="modal-background"
     >
-        <div onClick={e=>e.stopPropagation()} className="recipe-card">
+        <motion.div onClick={e=>e.stopPropagation()} className="recipe-card"
+          initial={{y: "50%", opacity: 0, scale: 0}}
+          animate={{y: 0, opacity: 1, scale: 1}}
+          transition={{ delay: 0.3 }}
+          exit={{y: "50%", scale: 0}}
+        >
           {children}
-        </div>
+        </motion.div>
     </div>
   )
 }

@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner'
 import GroceryItem from '../components/GroceryItem'
 import { getGroceries, reset, deleteAllGroceries } from '../features/groceries/grocerySlice'
 import { BiHide, BiShow, BiSortAZ, BiSortDown } from 'react-icons/bi'
+import { AnimatePresence, motion} from 'framer-motion'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -128,9 +129,18 @@ useEffect(() => {
       <section className="content">
         {filteredGroceries.length > 0 ? (
           <div className="groceries">
-          {filteredGroceries.map(grocery => {
-            return <GroceryItem key={grocery._id} grocery={grocery} />
-          })}
+          <AnimatePresence>
+          {filteredGroceries.map(grocery => (
+              <motion.div 
+                    key={grocery._id} 
+                    initial={{y: "50%", opacity: 0, scale: 0.5}}
+                    animate={{y: 0, opacity: 1, scale: 1}}
+                    exit={{opacity: 0, scale: 0.1}}
+              >
+                <GroceryItem grocery={grocery} />
+              </motion.div>
+          ))}
+          </AnimatePresence>
           </div>
         ) : (<h3>Your list is empty</h3>) 
         }

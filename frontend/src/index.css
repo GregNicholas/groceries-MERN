@@ -444,9 +444,6 @@ h1 {
     transform: rotate(360deg);
   }
 }
-.recipe-ingredient-list li:hover {
-  filter: brightness(.7);
-}
 
 .recipe-heading {
   margin-bottom: 1rem;
@@ -456,6 +453,10 @@ h1 {
   margin-bottom: 1rem;
   font-weight: 600;
   font-style: italic;
+}
+
+.recipe-grocery-item {
+  margin: 0 1rem;
 }
 
 .recipe-grocery-item input {
@@ -564,21 +565,27 @@ h1 {
   margin-bottom: 1rem;
 }
 
-@media only screen and (min-width: 500px) {
-  .recipe-ingredient-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 30px;
-    width: 450px;
-    margin: 0 auto;
-    text-align: left;
-  }
-  .recipe-ingredient-list li {
-    width: 200px;
-    line-height: 0.5;
-  }
+.recipe-ingredient-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: fit-content;
+  margin: 0 auto;
+  text-align: left;
+  justify-content: center;
+}
+.recipe-ingredient-list li {
+  background-color: white;
+  width: fit-content;
+  line-height: 0.5;
+  margin: .5rem;
+  padding: .5rem;
+  border: 1px solid var(--primary-blue);
+  border-radius: 10px;
+}
+.recipe-ingredient-list li:hover {
+  background: lightgray;
 }
 
 @media only screen and (min-width: 750px) {
@@ -608,14 +615,7 @@ h1 {
   }
 
   .recipe-ingredient-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 30px;
-    width: 662px;
-    margin: 0 auto;
-    text-align: left;
+    max-width: 650px;
   }
 }
 
@@ -649,11 +649,24 @@ h1 {
     padding: 0.5rem 1.8rem;
   }
 
+  .recipe-grocery-item {
+    line-height: 1.5;
+    width: fit-content;
+    width: fit-content;
+    line-height: 0.5;
+    margin: .5rem;
+  }
+
   h2 {
     margin: 0;
   }
 
   .grocery-date {
     display: none;
+  }
+
+  .search-list {
+    margin-top: .7rem;
+    border-bottom: 1px solid var(--secondary-blue);
   }
 }
