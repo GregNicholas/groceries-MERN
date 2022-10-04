@@ -9,7 +9,7 @@ import RecipeIngredientsList from '../components/RecipeIngredientsList'
 import FavoriteRecipesList from '../components/FavoriteRecipesList'
 import Spinner from '../components/Spinner'
 import Axios from 'axios'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Recipes = () => {
   const navigate = useNavigate()
@@ -100,7 +100,7 @@ const Recipes = () => {
             key={entry.recipe.uri}
             className="recipe-names search-list" 
             onClick={() => setOpenModal(entry)} 
-            initial={{delay: 1, x: "-100%", scale: 0}}
+            initial={{x: "-100%", scale: 0}}
             animate={{x: 0, scale: 1}}
             transition={{ type: "tween" }}
           >
@@ -112,10 +112,12 @@ const Recipes = () => {
 
   return (
     <>
+      <AnimatePresence>
       {openModal && <RecipeModal recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
+      </AnimatePresence>
       {loading && <Spinner />}
       <button className="recipe-button" onClick={() => setShowFavorites(prev => !prev)}>
-        {showFavorites ? "Search Recipes" : "Show Favorites"}
+        {showFavorites ? "Recipe Finder" : "Show Favorites"}
       </button>
       {showFavorites ? 
         <div className="recipe-favorites">
