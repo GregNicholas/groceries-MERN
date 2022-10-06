@@ -4,15 +4,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createGrocery } from '../features/groceries/grocerySlice'
 import { createRecipe } from '../features/recipes/recipeSlice'
 import ModalContainer from './ModalContainer'
-import {ToastContainer, toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const RecipeModal = ({recipeInfo, closeModal, hideSave }) => {
   const dispatch = useDispatch()
-  const recipeState = useSelector((state) => state)
+  const groceries = useSelector((state) => state.groceries)
 
-  const addIngredients = () => {    
-    recipeInfo.recipe.ingredients.forEach(ingredient => {
+  const addIngredients = () => {  
+    //filter ingredients so duplicates aren't added
+    const groceryList = groceries.groceries.map(item => item.text)  
+    
+    const newIngredients = recipeInfo.recipe.ingredients.filter(item => {
+        console.log(item.food)
+        return !groceryList.includes(item.food)
+    })
+    console.log(groceryList, newIngredients)
+    newIngredients.forEach(ingredient => {
         dispatch(createGrocery({ text: ingredient.food }))
     })
     closeModal()
@@ -27,7 +35,7 @@ const RecipeModal = ({recipeInfo, closeModal, hideSave }) => {
         }))
     }
     toast.success('Added to Favorites!', {
-        position: "top-right",
+        position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -39,17 +47,6 @@ const RecipeModal = ({recipeInfo, closeModal, hideSave }) => {
 
   return (
     <ModalContainer closeModal={closeModal}>
-        <ToastContainer
-            position="top-center"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-        />
         <div className="recipe-actions">
             {!hideSave && <div onClick={addToFavorites} className="recipe-favorite"><TiHeartOutline /><span className="icon-text">SAVE</span></div>}
             <div onClick={addIngredients} className="recipe-favorite"><CgPlayListAdd /><span className="icon-text">ADD ITEMS TO LIST</span></div>

@@ -40,6 +40,10 @@ const Login = () => {
     }))
   }
 
+  const handleDemoLogin = () => {
+    dispatch(login({ email:"demo@demo.com", password: "demo" }))
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -77,10 +81,11 @@ const Login = () => {
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">
-              Submit
+              Log In
             </button>
           </div>
         </form>
+        <button className="recipe-link" onClick={handleDemoLogin}>Demo Login</button>
       </section>
     </>
   )
