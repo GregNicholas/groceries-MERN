@@ -10,7 +10,7 @@
   - [Built with](#built-with)
   - [Other lessons Learned](#other-lessons-learned)
   - [Things to add](#things-to-add)
-  - [Demo](#demo)
+  - [Demo videos](#demo)
 - [Author](#author)
 
 ## Requirements: 
