@@ -14,12 +14,13 @@ const GroceryItem = ({grocery}) => {
   const addItemToCart = () => {
     dispatch(updateGrocery([grocery._id, {isInCart: !grocery.isInCart}]))
   }
+  const added = Date(grocery.createdAt).toLocaleString('en-US')
 
   return (
     <div onClick={addItemToCart} aria-label="add to cart">
     <div className={grocery.isInCart ? 'checked grocery' : 'grocery' }>
         {!grocery.isInCart && <div className="grocery-date">
-            {new Date(grocery.createdAt).toLocaleString('en-US')}
+            added {new Date(grocery.createdAt).toLocaleString('en-US').split(',')[0]}
         </div>}
         <h2>{grocery.text}</h2>
         

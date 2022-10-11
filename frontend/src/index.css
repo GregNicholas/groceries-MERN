@@ -216,7 +216,7 @@ h1 {
 .form,
 .content {
   width: 90%;
-  margin: 1rem auto 0 auto;
+  margin: 2rem auto 0 auto;
 }
 
 .form-group {
@@ -271,9 +271,9 @@ h1 {
 }
 
 .btn-block {
-  width: 100%;
-  margin-bottom: 20px;
+  margin: 0 auto 1.25rem auto;
   box-shadow: 1px 1px 10px -2px var(--secondary-blue);
+  width: 100%;
 }
 
 .btn-block:hover {
@@ -320,6 +320,7 @@ h1 {
 
 .btn-delete {
   background: firebrick;
+  margin: 1rem 0;
 }
 
 .cancel-delete {

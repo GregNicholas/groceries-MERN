@@ -7,19 +7,21 @@ import ModalContainer from './ModalContainer'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const RecipeModal = ({recipeInfo, closeModal, hideSave }) => {
+const RecipeModal = ({recipes, recipeInfo, closeModal, hideSave }) => {
   const dispatch = useDispatch()
   const groceries = useSelector((state) => state.groceries)
+
+  const recipeLink = recipeInfo._links.self.href
+  const isFavorite = recipes.findIndex(recipe => recipe.recipe === recipeLink) > -1 ? true : false
 
   const addIngredients = () => {  
     //filter ingredients so duplicates aren't added
     const groceryList = groceries.groceries.map(item => item.text)  
     
     const newIngredients = recipeInfo.recipe.ingredients.filter(item => {
-        console.log(item.food)
         return !groceryList.includes(item.food)
     })
-    console.log(groceryList, newIngredients)
+
     newIngredients.forEach(ingredient => {
         dispatch(createGrocery({ text: ingredient.food }))
     })
@@ -27,28 +29,37 @@ const RecipeModal = ({recipeInfo, closeModal, hideSave }) => {
   }
 
   const addToFavorites = () => {
-    if(recipeInfo.recipe.label.length > 0){
-        dispatch(createRecipe({ 
-            recipe: recipeInfo._links.self.href,
-            title: recipeInfo.recipe.label,
-            mealType: recipeInfo.recipe.dishType[0]
-        }))
+    if (isFavorite){
+        console.log("RECIPE EXISTS")
+    } else {
+        if(recipeInfo.recipe.label.length > 0){
+            dispatch(createRecipe({ 
+                recipe: recipeInfo._links.self.href,
+                title: recipeInfo.recipe.label,
+                mealType: recipeInfo.recipe.dishType[0]
+            }))
+        }
+        toast.success('Added to Favorites!', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
     }
-    toast.success('Added to Favorites!', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
   }
 
   return (
     <ModalContainer closeModal={closeModal}>
         <div className="recipe-actions">
-            {!hideSave && <div onClick={addToFavorites} className="recipe-favorite"><TiHeartOutline /><span className="icon-text">SAVE</span></div>}
+            {!hideSave && <div onClick={addToFavorites} className="recipe-favorite">
+                { isFavorite ? <TiHeartFullOutline /> : <TiHeartOutline /> }
+                <span className="icon-text">
+                    SAVE
+                </span>
+                </div>}
             <div onClick={addIngredients} className="recipe-favorite"><CgPlayListAdd /><span className="icon-text">ADD ITEMS TO LIST</span></div>
             <CgCloseO className="close-button" onClick={closeModal} />
         </div>

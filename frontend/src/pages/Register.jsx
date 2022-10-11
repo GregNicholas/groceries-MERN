@@ -45,8 +45,9 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    if(password !== confirmPassword){
+    if(password.length < 6){
+      toast.error('password must be at least six characters')
+    }else if(password !== confirmPassword){
       toast.error('passowords do not match')
     } else {
       const userData = {
@@ -76,12 +77,12 @@ const Register = () => {
           <div className="form-group">
             <input type="text" className="form-control" id="name"
             name="name" value={name} placeholder="enter your name"
-            onChange={handleChange}/>
+            onChange={handleChange} required/>
           </div>
           <div className="form-group">
             <input type="email" className="form-control" id="email"
             name="email" value={email} placeholder="enter your email"
-            onChange={handleChange}/>
+            onChange={handleChange} required/>
           </div>
           <div className="form-group">
             <input type="password" className="form-control" id="password"
@@ -91,7 +92,7 @@ const Register = () => {
           <div className="form-group">
             <input type="password" className="form-control" id="confirmPassword"
             name="confirmPassword" value={confirmPassword} placeholder="confirm password"
-            onChange={handleChange}/>
+            onChange={handleChange} minLength="6"/>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">

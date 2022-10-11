@@ -113,7 +113,7 @@ const Recipes = () => {
   return (
     <>
       <AnimatePresence>
-      {openModal && <RecipeModal recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
+      {openModal && <RecipeModal recipes={recipes} recipeInfo={openModal} closeModal={()=>setOpenModal(null)} />} 
       </AnimatePresence>
       {loading && <Spinner />}
       <button className="recipe-button" onClick={() => setShowFavorites(prev => !prev)}>
@@ -132,15 +132,9 @@ const Recipes = () => {
             <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
             {recipeTitles && 
               <>
-              {/* <motion.div 
-                className="recipe-names"
-                initial={{x: "-100%", scale: 0.1}}
-                animate={{x: 0, scale: 1}}
-              > */}
               <div className="recipe-names">
                 {recipeTitles}
               </div>
-              {/* </motion.div> */}
                 {recipeData._links.next && <button className="recipe-button" onClick={()=>getRecipesPage(recipeData._links.next.href)}>more recipes</button>}
               </>}   
         </div>
