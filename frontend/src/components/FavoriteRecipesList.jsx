@@ -19,13 +19,10 @@ const FavoriteRecipesList = ({ recipes }) => {
     }
 
     const getRecipeInfo = async (searchUrl) => {
-        console.log("getting a FAVORITE RECIPE....")
         setLoading(true)
         setError(false)
         try {
           const result = await Axios.get(searchUrl)
-          console.log("RECIPE RESULT: ", result.data)
-
           setRecipeData(result.data);
           setLoading(false)
           setOpenModal(result.data)
@@ -35,7 +32,6 @@ const FavoriteRecipesList = ({ recipes }) => {
         }
       }
 
-    console.log("Saved RECIPES: ", recipes)
   return (
     <>
         {loading && <Spinner />}

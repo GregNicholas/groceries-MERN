@@ -59,7 +59,7 @@ export const updateGrocery = createAsyncThunk('groceries/update', async(updateDa
   }
 })
 
-export const deleteGrocery = createAsyncThunk('groceries/deleteAll', async(id, thunkAPI) => {
+export const deleteGrocery = createAsyncThunk('groceries/delete', async(id, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
     return await groceryService.deleteGrocery(id, token)
@@ -75,7 +75,7 @@ export const deleteGrocery = createAsyncThunk('groceries/deleteAll', async(id, t
   }
 })
 
-export const deleteAllGroceries = createAsyncThunk('groceries/delete', async(_, thunkAPI) => {
+export const deleteAllGroceries = createAsyncThunk('groceries/deleteAll', async(_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
     return await groceryService.deleteAllGroceries(token)
