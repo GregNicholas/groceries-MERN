@@ -32,9 +32,8 @@ const Recipes = () => {
   const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
   const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
   // keys for deployment on heroku not working. VITE issue?
-   const app_keyy = process.env.VITE_EDAMAM_APP_KEY
-  const app_idd = process.env.VITE_EDAMAM_APP_ID
-  console.log("ENVIRONMENT VARIABLES: ", app_keyy, app_idd)
+console.log("ENV: ", import.meta.env.VITE_EDAMAM_APP_KEY)
+console.log("ENV NO IMPORT ", meta.env.VITE_EDAMAM_APP_ID)
   // const APP_KEY = "4fcb252b75864cec9d67d4bcadde52ee"
   // const APP_ID = "e6f2ebdf"
   const url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`
