@@ -13,7 +13,7 @@ const recipeSchema = mongoose.Schema(
        },
        title: {
            type: String,
-           required: [true, 'recipe link']
+           required: [true, 'recipe title']
        },
        mealType: {
            type: String,

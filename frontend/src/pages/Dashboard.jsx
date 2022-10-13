@@ -115,7 +115,7 @@ useEffect(() => {
       
       <GroceryForm />
 
-      <div className="filter-buttons">
+      {groceries.length > 0 && <div className="filter-buttons">
         <button 
           className="btn btn-filter"
           onClick={() => setFilterChecked(prev => !prev)}
@@ -124,7 +124,7 @@ useEffect(() => {
           className="btn btn-filter"
           onClick={() => setSortChecked(prev => !prev)}
         >{ !sortChecked ? <><BiSortAZ />Sort Alphabetical</> : <><BiSortDown />Sort By Added</>}</button>
-      </div>
+      </div>}
 
       <section className="content">
         {filteredGroceries.length > 0 ? (

@@ -93,13 +93,14 @@ const deleteGrocery = asyncHandler(async (req, res) => {
 // @route DELETE /api/groceries/
 // @access Private
 const deleteAllGroceries = asyncHandler(async (req, res) => {
-    const groceries = await Grocery.find({ user: req.user.id})
 
     // Check for user
     if(!req.user) {
         res.status(401)
         throw new Error('user not found')
     }
+    //get all groceries for current user, for array in the deleteMany 
+    const groceries = await Grocery.find({ user: req.user.id})
 
     if(groceries.length > 0){
         await Grocery.deleteMany({'_id':{'$in':groceries}})
