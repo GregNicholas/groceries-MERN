@@ -3,7 +3,7 @@ import { TiHeartOutline, TiHeartFullOutline } from 'react-icons/ti'
 import { FiExternalLink } from 'react-icons/fi'
 import { useSelector, useDispatch } from 'react-redux'
 import { createGrocery } from '../features/groceries/grocerySlice'
-import { createRecipe } from '../features/recipes/recipeSlice'
+import { createRecipe, deleteRecipe } from '../features/recipes/recipeSlice'
 import ModalContainer from './ModalContainer'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,7 @@ const RecipeModal = ({recipes, recipeInfo, closeModal, hideSave }) => {
   const groceries = useSelector((state) => state.groceries)
 
   const recipeLink = recipeInfo._links.self.href
-  const isFavorite = recipes?.findIndex(recipe => recipe.recipe === recipeLink) > -1 ? true : false
+  const isFavorite = recipes?.findIndex(recipe => recipe.recipe === recipeLink) 
 
   const addIngredients = () => {  
     //filter ingredients so duplicates aren't added
@@ -38,8 +38,9 @@ const RecipeModal = ({recipes, recipeInfo, closeModal, hideSave }) => {
   }
 
   const addToFavorites = () => {
-    if (isFavorite){
+    if (isFavorite > -1){
         console.log("RECIPE EXISTS")
+        dispatch(deleteRecipe(recipes[isFavorite]._id))
     } else {
         if(recipeInfo.recipe.label.length > 0){
             dispatch(createRecipe({ 
@@ -48,25 +49,16 @@ const RecipeModal = ({recipes, recipeInfo, closeModal, hideSave }) => {
                 mealType: recipeInfo.recipe.dishType[0]
             }))
         }
-        toast.success('Added to Favorites!', {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
     }
   }
-console.log(recipeInfo)
+
   return (
     <ModalContainer closeModal={closeModal}>
         <div className="recipe-actions">
             {!hideSave && <div onClick={addToFavorites} className="recipe-favorite">
-                { isFavorite ? <TiHeartFullOutline /> : <TiHeartOutline /> }
+                { isFavorite > -1 ? <TiHeartFullOutline /> : <TiHeartOutline /> }
                 <span className="icon-text">
-                    { isFavorite ? "SAVED" : "SAVE" }
+                    { isFavorite > -1 ? "REMOVE" : "SAVE" }
                 </span>
                 </div>}
             <div onClick={addIngredients} className="recipe-favorite"><CgPlayListAdd /><span className="icon-text">ADD ITEMS TO LIST</span></div>
