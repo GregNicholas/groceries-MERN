@@ -126,7 +126,7 @@ const Recipes = () => {
           <h1 className="recipe-heading">Recipe Finder</h1>
           <p className="recipe-caption">Check ingredient(s) you would like to find recipes with</p>
             <RecipeIngredientsList groceries={groceries} handleClick={handleCheckIngredient} checkedState={checkedState} />
-            <button disabled={chosenIngredients.length < 1} className="recipe-button" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
+            <button disabled={chosenIngredients.length < 1} className="recipe-button get-recipes" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
             {recipeTitles && 
               <>
               <div className="recipe-names">

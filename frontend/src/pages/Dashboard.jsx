@@ -113,7 +113,7 @@ useEffect(() => {
         
       </section>
       
-      <GroceryForm />
+      <GroceryForm groceries={groceries}/>
 
       {groceries.length > 0 && <div className="filter-buttons">
         <button 

@@ -2,9 +2,13 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createGrocery } from '../features/groceries/grocerySlice'
 import { FaPlusCircle } from 'react-icons/fa'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const GroceryForm = () => {
+const GroceryForm = ({groceries}) => {
     const [text, setText] = useState('')
+
+    const groceryList = groceries.map(item => item.text)
 
     const dispatch = useDispatch()
 
@@ -13,11 +17,23 @@ const GroceryForm = () => {
     }
 
     const handleSubmit = (e) => {
-        console.log("ADD: ", text)
         e.preventDefault()
-        if(text.length > 0){
-            dispatch(createGrocery({ text }))
-            setText('')
+        if(!groceryList.includes(text)){
+            console.log("ADD: ", text)
+            if(text.length > 0){
+                dispatch(createGrocery({ text }))
+                setText('')
+            }
+        } else {
+            toast.error('Item already in list!', {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
         }
     }
 
