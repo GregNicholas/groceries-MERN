@@ -1,7 +1,7 @@
 
 # Grocery Getter MERN
 
-**Link to project demo:** https://grocery-getter.fly.dev/
+**Link to deployed app:** https://grocery-getter.fly.dev/
 
 ## Table of contents
 
