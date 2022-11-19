@@ -97,6 +97,7 @@ useEffect(() => {
       {showDeleteWarning && <DeleteWarning closeModal={() => setShowDeleteWarning(false)} onClick={deleteAllItems} />}
       <section className="heading hero">
         <h2>{greeting} {user && user.name}</h2>
+        <p className="heading-instructions">Manage your shopping list, get personalized recipe inspiration on the go, and save your favorites!</p>
       </section>
       <section className="content intro">
         <h1>Grocery List</h1>

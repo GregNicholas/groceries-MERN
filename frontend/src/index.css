@@ -102,19 +102,20 @@ h1 {
 }
 
 .heading {
-  font-size: 3rem;
+  color: white;
   font-weight: 700;
   margin: 0 -1.25rem 3rem -1.25rem;
   padding: 0 20px;
 }
 
 .heading h2 {
-  color: white;
+  font-size: 3rem;
   text-shadow: 0 0 12px black;
   font-style: italic;
 }
 
 .heading p {
+  font-size: 1rem;
   color: white;
   text-shadow: 0 0 12px black;
 }
@@ -627,10 +628,6 @@ h1 {
 
   .heading h2 {
     font-size: 2.5rem;
-  }
-
-  .heading p {
-    font-size: 2rem;
   }
 
   .groceries {
