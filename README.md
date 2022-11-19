@@ -1,7 +1,7 @@
 
 # Grocery Getter MERN
 
-**Link to project demo:** https://grocerygreg.herokuapp.com/
+**Link to project demo:** https://grocery-getter.fly.dev/
 
 ## Table of contents
 
@@ -15,9 +15,9 @@
 
 ## Requirements: 
 
-This project was build for several reasons. Something I do often is grocery shopping, and I am never quite satisfied with the user interface of the stores' apps, so I decided to make this into a pleasant experience. 
+This project was build for several reasons. Something I do often is grocery shopping, and I am never quite satisfied with the user interface of the stores' apps, so I decided to make this into a pleasant experience. Not only a simple list, this app helps the user decide what to make with their ingredients on hand by searching a recipes database with any chosen combination of ingredients. Favorite recipes can be saved and viewed, and recipe ingredients can be instantly added to the user's list.
 
-- A user must log in to be able to access and edit their own saved grocery bag. 
+- A user must log in to be able to access and edit their personalized saved grocery bag. 
 - Items may be checked off, added/removed from the cart, and sortable based on time added or alphabetically.
 - There is a page to explore recipes using items on the user's list, with the ability to select one or a combination of ingredients when searching.
 - Must call an external api, https://developer.edamam.com/edamam-recipe-api to fetch desired recipes.
