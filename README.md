@@ -60,8 +60,9 @@ React, Redux toolkit, MongoDB, Express, Node, Mongoose, jsonwebtoken, framer-mot
 
 ## Things to Add: 
 
+- Create an input for when the user is on the recipe page, so they can search from that page without going back, then have the ingredients added to the list if a desirable recipe is found as usual
 - Integrate accounts to facilitate sharing of recipes, writing notes on favorited recipes.
-- If I were to build this again, I would probably use styled components for more organized styling, or maybe tailwind.
+- If I were to build this again from scratch, I would probably use styled components for more organized styling, or maybe tailwind.
 
 ## Demo
 [Login_see_list.webm](https://user-images.githubusercontent.com/59461870/194460341-e81bd1e5-2747-4cd2-b793-ef0699ea53c1.webm)
