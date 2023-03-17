@@ -24,12 +24,11 @@ const Recipes = () => {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
-  
+  const [customIngredients, setCustomIngredients] = useState("");
   const [checkedState, setCheckedState] = useState([]);
 
   const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
   const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
-
   const url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`
 
   useEffect(() => {
@@ -64,6 +63,7 @@ const Recipes = () => {
       chosenIngredients += item.text + ' '
     }
   })
+  if (customIngredients) chosenIngredients += customIngredients;
 
   const getRecipesPage = async (searchUrl) => {
     setLoading(true);
@@ -123,7 +123,24 @@ const Recipes = () => {
           <h1 className="recipe-heading">Recipe Finder</h1>
           <p className="recipe-caption">Check ingredient(s) you would like to find recipes with</p>
             <RecipeIngredientsList groceries={groceries} handleClick={handleCheckIngredient} checkedState={checkedState} />
-            <button disabled={chosenIngredients.length < 1} className="recipe-button get-recipes" onClick={() => getRecipesPage(`${url}&q=${chosenIngredients}`)}>get recipes</button>
+            <form 
+              className="recipe-form" 
+              onSubmit={(e) => {
+                e.preventDefault()
+                getRecipesPage(`${url}&q=${chosenIngredients}`)
+              }}
+            >
+            <label style={{fontWeight: "bold"}}>
+              Add more ingredients: <input 
+                type="text" 
+                className="custom-input"
+                onChange={(e) => setCustomIngredients(e.target.value)}
+                value={customIngredients} 
+                placeholder="add other ingredients..." 
+              />
+            </label>
+            <button type="submit" disabled={chosenIngredients.length < 1} className="recipe-button get-recipes">get recipes</button>
+            </form>
             {recipeTitles && 
               <>
               <div className="recipe-names">
