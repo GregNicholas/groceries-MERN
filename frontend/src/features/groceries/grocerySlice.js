@@ -65,13 +65,13 @@ export const deleteGrocery = createAsyncThunk('groceries/delete', async(id, thun
     return await groceryService.deleteGrocery(id, token)
   } catch (err) {
         console.log("ERROR: ", err)
-            const message = 
-                (err.response && 
-                  err.response.data && 
-                  err.response.data.message) || 
-                err.message || 
-                err.toString()
-            return thunkAPI.rejectWithValue(message)
+        const message = 
+            (err.response && 
+              err.response.data && 
+              err.response.data.message) || 
+            err.message || 
+            err.toString()
+        return thunkAPI.rejectWithValue(message)
   }
 })
 
