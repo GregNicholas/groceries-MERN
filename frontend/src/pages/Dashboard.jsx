@@ -31,12 +31,12 @@ useEffect(() => {
     } 
     if(!user){
       navigate('/login')
+    }else {
+      dispatch(getGroceries())
     }
 
-    dispatch(getGroceries())
-
     return () => {
-      dispatch(reset)
+      dispatch(reset())
     }
   }, [user, navigate, isError, message, dispatch])
 

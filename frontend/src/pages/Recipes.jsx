@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getGroceries, reset } from '../features/groceries/grocerySlice'
 import { getRecipes, resetRecipes } from '../features/recipes/recipeSlice'
@@ -10,53 +9,50 @@ import FavoriteRecipesList from '../components/FavoriteRecipesList'
 import Spinner from '../components/Spinner'
 import Axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FaBullseye } from 'react-icons/fa'
 
 const Recipes = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const { user } = useSelector((state) => state.auth)
+  const { groceries, isGroceriesLoading, isGroceriesError, message } = useSelector((state) => state.groceries)
+  const { recipes, isRecipesLoading, isRecipesError, recipesMessage } = useSelector((state) => state.recipes)
+
   const [recipeData, setRecipeData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
-  const [openModal, setOpenModal] = useState(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   
-  const { user } = useSelector((state) => state.auth)
-  const { groceries, isLoading, isError, message } = useSelector((state) => state.groceries)
-  const { recipes, isRecipesLoading, isRecipesError, recipesMessage } = useSelector((state) => state.recipes)
-  const [checkedState, setCheckedState] = useState(
-    new Array(groceries.length).fill(false)
-  );
+  const [checkedState, setCheckedState] = useState([]);
 
-  let recipeTitles = null;
   const APP_KEY = import.meta.env.VITE_EDAMAM_APP_KEY
   const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID
 
   const url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`
 
   useEffect(() => {
-    if(isError) {
-      console.log("error message:", message)
+    if(isGroceriesError) {
+      console.log("Grocery error:", message)
     } 
+
     if(isRecipesError){
       console.log("Recipe error: ", recipesMessage)
     }
 
     if(!user){
       navigate('/login')
-    }
-    //fetch groceries if they're not yet in state, for example if user loads directly to this page
-    if(groceries.length < 1){
+    }else {
       dispatch(getGroceries())
+      dispatch(getRecipes())
     } 
 
-    dispatch(getRecipes())
-
     return () => {
-      dispatch(reset)
-      dispatch(resetRecipes)
+      dispatch(reset())
+      dispatch(resetRecipes())
     }
-  }, [user, navigate, isError, message, dispatch])
+  }, [user, navigate, isGroceriesError, message, dispatch])
 
   useEffect(() => {
     setCheckedState(new Array(groceries.length).fill(false))
@@ -82,14 +78,15 @@ const Recipes = () => {
     }
   }
 
-  const handleCheckIngredient = (position) => {
+  const handleCheckIngredient = useCallback((position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
     );
 
     setCheckedState(updatedCheckedState);
-  };
+  }, [checkedState]);
 
+  let recipeTitles = null;
   if (recipeData) {
     recipeTitles = recipeData.hits.map((entry) => {
       return (
@@ -104,7 +101,7 @@ const Recipes = () => {
             {entry.recipe.label}
           </motion.p>
       )
-    });
+    })
   }
 
   return (
