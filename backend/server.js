@@ -7,8 +7,6 @@ const connectDB = require('./config/db')
 const PORT = process.env.PORT || 8080
 const cors = require('cors');
 
-connectDB()
-
 const app = express()
 
 app.use(cors());
@@ -31,4 +29,8 @@ if(process.env.NODE_ENV === 'production') {
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`server started on port ${PORT}`))
+connectDB().then(() => {
+    app.listen(PORT, () => console.log(`server started on port ${PORT}`))
+})
+
+// app.listen(PORT, () => console.log(`server started on port ${PORT}`))
