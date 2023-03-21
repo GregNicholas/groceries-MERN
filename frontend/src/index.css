@@ -106,18 +106,18 @@ h1 {
   font-weight: 700;
   margin: 0 -1.25rem 3rem -1.25rem;
   padding: 0 20px;
+  text-shadow: 2px 4px 12px black;
+
 }
 
 .heading h2 {
   font-size: 3rem;
-  text-shadow: 0 0 12px black;
   font-style: italic;
 }
 
 .heading p {
   font-size: 1rem;
   color: white;
-  text-shadow: 0 0 12px black;
 }
 
 .hero, .authentication{
@@ -134,7 +134,8 @@ h1 {
 }
 
 .hero {
-  background-image: url("./assets/groceries-bg.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3),
+  rgba(0, 0, 0, 0.3)), url("./assets/groceries-bg.jpg");
 }
 
 .authentication {

@@ -101,7 +101,6 @@ useEffect(() => {
       </section>
       <section className="content intro">
         <h1>Grocery List</h1>
-        
         <p className="main-caption">Type in any items you need to build your list. </p>
         {groceries.length > 0 && (
           <>
